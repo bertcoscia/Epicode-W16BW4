@@ -17,8 +17,11 @@ public class Application {
 
         UserDAO ud = new UserDAO(em);
         User sergioMattarella = new User("Sergio", "Mattarella", LocalDate.parse("1938-05-12"));
-
         User sergioMattarellaFromDb = ud.findUserById("fbabb1b7-d953-4a41-813c-cef8e9e38bbc");
-        System.out.println(sergioMattarellaFromDb);
+
+        System.out.println(ud.findAllUsers());
+
+        em.close();
+        emf.close();
     }
 }
