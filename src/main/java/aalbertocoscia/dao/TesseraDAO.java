@@ -1,6 +1,6 @@
 package aalbertocoscia.dao;
 
-import aalbertocoscia.Tessera;
+import aalbertocoscia.entities.Tessera;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

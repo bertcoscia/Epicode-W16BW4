@@ -2,6 +2,7 @@ package aalbertocoscia;
 
 import aalbertocoscia.dao.TesseraDAO;
 import aalbertocoscia.dao.UserDAO;
+import aalbertocoscia.entities.Tessera;
 import aalbertocoscia.entities.User;
 import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;

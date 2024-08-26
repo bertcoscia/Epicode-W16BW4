@@ -1,13 +1,12 @@
-package aalbertocoscia;
+package aalbertocoscia.entities;
 
-import aalbertocoscia.entities.User;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
-@Table
+@Table(name = "tessere")
 public class Tessera {
     @Id
     @GeneratedValue
