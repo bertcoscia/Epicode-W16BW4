@@ -21,10 +21,10 @@ public class User {
     public User() {
     }
 
-    public User(String nome, String cognome, LocalDate dataNascita) {
+    public User(String nome, String cognome, String dataNascita) {
         this.nome = nome;
         this.cognome = cognome;
-        this.dataNascita = dataNascita;
+        this.dataNascita = LocalDate.parse(dataNascita);
     }
 
     public UUID getIdUser() {
