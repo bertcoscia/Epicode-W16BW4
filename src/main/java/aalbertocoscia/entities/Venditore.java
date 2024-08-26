@@ -12,6 +12,7 @@ import java.util.UUID;
 public class Venditore {
     @Id
     @GeneratedValue
+    @Column(name = "id_venditore", unique = true)
     private UUID idVenditore;
     private String indirizzo;
 

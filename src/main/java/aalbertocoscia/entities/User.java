@@ -11,12 +11,15 @@ import java.util.UUID;
 public class User {
     @Id
     @GeneratedValue
-    @Column(name = "id")
+    @Column(name = "id", unique = true)
     private UUID idUser;
     private String nome;
     private String cognome;
     @Column(name = "data_di_nascita")
     private LocalDate dataNascita;
+
+    @OneToOne(mappedBy = "user")
+    private Tessera tessera;
 
     public User() {
     }

@@ -10,16 +10,17 @@ import java.util.UUID;
 public class Tessera {
     @Id
     @GeneratedValue
-    @Column(name = "id_tessera")
+    @Column(name = "id_tessera", unique = true)
     private UUID idTessera;
     @Column(name = "data_emissione")
     private LocalDate dataEmissione;
     @Column(name = "data_scadenza")
     private LocalDate dataScadenza;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @OneToOne
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
+
 
     public Tessera() {
     }

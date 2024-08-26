@@ -22,11 +22,14 @@ public class Application {
 
         User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
         User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
-        User sergioMattarellaFromDb = ud.findUserById("fbabb1b7-d953-4a41-813c-cef8e9e38bbc");
-        User user2FromDb = ud.findUserById("b77b1aaf-ee61-4be4-aa12-691e86be8682");
+        User sergioMattarellaFromDb = ud.findUserById("e8161585-b715-4be9-b59c-024c6205918b");
+        User user2FromDb = ud.findUserById("d6521de9-054e-457e-9fc4-436346feec48");
 
         Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
         Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
+
+        td.save(tes1);
+        td.save(tes2);
 
         System.out.println(td.findAllTessere());
 
