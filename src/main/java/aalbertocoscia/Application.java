@@ -1,5 +1,7 @@
 package aalbertocoscia;
 
+import aalbertocoscia.dao.ManutenzioneDAO;
+import aalbertocoscia.dao.MezzoDAO;
 import aalbertocoscia.dao.TesseraDAO;
 import aalbertocoscia.dao.TrattaDAO;
 import aalbertocoscia.dao.UserDAO;
@@ -12,6 +14,7 @@ import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
 
 public class Application {
     private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("Epicode-W16BW4");
