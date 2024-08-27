@@ -1,5 +1,11 @@
 package aalbertocoscia;
 
+import aalbertocoscia.dao.TesseraDAO;
+import aalbertocoscia.dao.UserDAO;
+import aalbertocoscia.entities.Tessera;
+import aalbertocoscia.entities.User;
+import com.github.javafaker.Faker;
+import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
@@ -8,5 +14,26 @@ public class Application {
 
     public static void main(String[] args) {
         System.out.println("Hello World!");
+        Faker faker = new Faker();
+        EntityManager em = emf.createEntityManager();
+
+        UserDAO ud = new UserDAO(em);
+        TesseraDAO td = new TesseraDAO(em);
+
+        User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
+        User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
+        User sergioMattarellaFromDb = ud.findUserById("e8161585-b715-4be9-b59c-024c6205918b");
+        User user2FromDb = ud.findUserById("d6521de9-054e-457e-9fc4-436346feec48");
+
+        Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
+        Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
+
+        td.save(tes1);
+        td.save(tes2);
+
+        System.out.println(td.findAllTessere());
+
+        em.close();
+        emf.close();
     }
 }
