@@ -1,10 +1,12 @@
 package aalbertocoscia;
 
 import aalbertocoscia.dao.TesseraDAO;
+import aalbertocoscia.dao.TrattaDAO;
 import aalbertocoscia.dao.UserDAO;
 import aalbertocoscia.dao.VenditoreDAO;
 import aalbertocoscia.entities.DistributoreAutomatico;
 import aalbertocoscia.entities.Rivenditore;
+import aalbertocoscia.entities.Tratta;
 import aalbertocoscia.enums.StatoDistributoreAutomatico;
 import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
@@ -20,9 +22,9 @@ public class Application {
         EntityManager em = emf.createEntityManager();
 
         UserDAO ud = new UserDAO(em);
-        TesseraDAO td = new TesseraDAO(em);
+        TesseraDAO ted = new TesseraDAO(em);
         VenditoreDAO vd = new VenditoreDAO(em);
-
+        TrattaDAO trd = new TrattaDAO(em);
 
         //User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
         //User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
@@ -42,6 +44,10 @@ public class Application {
         //vd.save(dist2);
         //vd.save(riv1);
 
+        Tratta tra1 = new Tratta("81", faker.address().fullAddress(), faker.address().fullAddress(), faker.number().numberBetween(20, 90));
+        Tratta tra2 = new Tratta("545", faker.address().fullAddress(), faker.address().fullAddress(), faker.number().numberBetween(20, 90));
+
+        System.out.println(trd.findAllTratte());
 
         em.close();
         emf.close();
