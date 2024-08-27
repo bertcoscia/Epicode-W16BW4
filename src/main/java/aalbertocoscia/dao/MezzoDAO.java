@@ -3,11 +3,9 @@ package aalbertocoscia.dao;
 import aalbertocoscia.entities.Autobus;
 import aalbertocoscia.entities.Mezzo;
 import aalbertocoscia.entities.Tram;
+import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Query;
-
-import java.util.UUID;
 
 public class MezzoDAO {
     private final EntityManager em;
@@ -24,33 +22,31 @@ public class MezzoDAO {
         System.out.println("Il mezzo con id " + mezzo.getIdMezzo() + " è stato salvato correttamente!");
     }
 
-    public Mezzo findById(long idMezzo) {
+    public Mezzo findById(String idMezzo) {
         Mezzo found = em.find(Mezzo.class, idMezzo);
-        //if (found == null) throw new NotFoundException(idMezzo);
+        if (found == null) throw new NotFoundException(idMezzo);
         return found;
     }
 
-    public Autobus findAutobusById(long catId) {
-        Autobus found = em.find(Autobus.class, catId);
-        //if (found == null) throw new NotFoundException(AutobusId);
+    public Autobus findAutobusById(String AutobusId) {
+        Autobus found = em.find(Autobus.class, AutobusId);
+        if (found == null) throw new NotFoundException(AutobusId);
         return found;
     }
 
-    public Tram findTramById(long tramId) {
+    public Tram findTramById(String tramId) {
         Tram found = em.find(Tram.class, tramId);
-        //if (found == null) throw new NotFoundException(tramId);
+        if (found == null) throw new NotFoundException(tramId);
         return found;
     }
 
-    public void findMezzoByIdAndDelete(UUID toDelete) {
+
+    public void findTesseraByIdAndDelete(String id) {
+        Mezzo found = findById(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-
-        Query deleteQuery = em.createQuery("DELETE FROM Animal a WHERE a.id_mezzo = :toDelete"); // DELETE FROM animals WHERE name = 'Felix'
-        deleteQuery.setParameter("id_mezzo", toDelete);
-        int numCancellati = deleteQuery.executeUpdate();
-
+        em.remove(found);
         transaction.commit();
-        System.out.println("Ho cancellato il mezzo con id: " + toDelete);
+        System.out.println("Mezzo numero " + found.getIdMezzo() + " rimossa correttamente");
     }
 }
