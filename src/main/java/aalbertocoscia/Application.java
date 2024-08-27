@@ -21,12 +21,13 @@ public class Application {
 
         UserDAO ud = new UserDAO(em);
         TesseraDAO ted = new TesseraDAO(em);
-        VenditoreDAO vd = new VenditoreDAO(em);
+        VenditoreDAO ved = new VenditoreDAO(em);
         TrattaDAO trd = new TrattaDAO(em);
-        MezzoDAO md = new MezzoDAO(em);
+        MezzoDAO med = new MezzoDAO(em);
         ManutenzioneDAO mad = new ManutenzioneDAO(em);
-        AbbonamentiDAO ad = new AbbonamentiDAO(em);
-        BigliettiDAO bd = new BigliettiDAO(em);
+        AbbonamentoDAO ad = new AbbonamentoDAO(em);
+        BigliettoDAO bd = new BigliettoDAO(em);
+        ViaggioDAO vid = new ViaggioDAO(em);
 
 
         User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
@@ -57,6 +58,9 @@ public class Application {
         //trd.save(tra1);
         //trd.save(tra2);
 
+        Tratta tra1FromDb = trd.findTrattaById("86e397c4-ca71-4e86-90d6-cac9cfdbd75f");
+        Tratta tra2FromDb = trd.findTrattaById("e3066582-dfa6-484a-985f-e4aba41457a3");
+
         Autobus mez1 = new Autobus(30, StatoMezzo.IN_SERVIZIO);
         Autobus mez2 = new Autobus(25, StatoMezzo.IN_MANUTENZIONE);
         Tram tram2 = new Tram(50, StatoMezzo.IN_SERVIZIO);
@@ -64,8 +68,9 @@ public class Application {
         //md.save(mez2);
         //md.save(tram2);
 
-        Mezzo mez1FromDb = md.findMezzoById("6451bf53-c52c-455e-ab22-48bb75f1bc6a");
-        Mezzo mez2FromDb = md.findMezzoById("6e0bff32-c84a-4a3d-b1aa-7f350281e817");
+        Mezzo mez1FromDb = med.findMezzoById("6451bf53-c52c-455e-ab22-48bb75f1bc6a");
+        Mezzo mez2FromDb = med.findMezzoById("6e0bff32-c84a-4a3d-b1aa-7f350281e817");
+        Mezzo tram2FromDb = med.findMezzoById("6e0bff32-c84a-4a3d-b1aa-7f350281e817");
         Manutenzione man1 = new Manutenzione("2020-07-26", "2020-10-05", "guasto al motore", mez1FromDb);
         Manutenzione man2 = new Manutenzione("2021-01-06", "2021-01-15", "cambio gomme", mez2FromDb);
         //mad.save(man1);
@@ -75,10 +80,23 @@ public class Application {
         Abbonamento abbonamento1 = new Abbonamento("2024-08-27", DurataAbbonamento.SETTIMANALE);
         Abbonamento abbonamento2 = new Abbonamento("2024-08-27", DurataAbbonamento.MENSILE);
         Biglietto biglietto1 = new Biglietto("2024-08-27");
+        Biglietto biglietto1FromDb = bd.findById("cb147a2d-67b6-4e36-8f47-e4a792cb9878");
 
         //ad.save(abbonamento1);
         //ad.save(abbonamento2);
         //bd.save(biglietto1);
+
+        Viaggio viaggio1 = new Viaggio(54, mez1FromDb, tra1FromDb);
+        Viaggio viaggio2 = new Viaggio(40, tram2FromDb, tra2FromDb);
+        Viaggio viaggio1FromDb = vid.findViaggioById("ab0c971d-75d1-4ec0-8cdd-b162226d34bc");
+
+        System.out.println("BIGLIETTO PRIMA " + biglietto1FromDb);
+        biglietto1FromDb.timbraBiglietto(viaggio1FromDb);
+        bd.save(biglietto1FromDb);
+        System.out.println("BIGLIETTO DOPO " + biglietto1FromDb);
+
+        //vid.save(viaggio1);
+        //vid.save(viaggio2);
 
 
         em.close();

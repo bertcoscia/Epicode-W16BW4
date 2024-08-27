@@ -1,6 +1,8 @@
 package aalbertocoscia.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 import java.time.LocalDate;
@@ -8,10 +10,13 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "biglietti")
 public class Biglietto extends TitoloViaggio {
-    private boolean attivo;
+    private boolean timbrato;
     private LocalDate dataVidimazione;
-
     private double prezzo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_viaggio")
+    private Viaggio viaggio;
 
     public Biglietto() {
     }
@@ -19,16 +24,17 @@ public class Biglietto extends TitoloViaggio {
     public Biglietto(String data_emissione) {
         super(data_emissione);
         this.prezzo = 1.50;
-        this.attivo = true;
+        this.timbrato = false;
     }
 
-    public void timbraBiglietto(boolean attivo, LocalDate dataVidimazione) {
-        this.attivo = false;
-        this.dataVidimazione = dataVidimazione;
+    public void timbraBiglietto(Viaggio viaggio) {
+        this.timbrato = true;
+        this.dataVidimazione = LocalDate.now();
+        this.viaggio = viaggio;
     }
 
-    public boolean isAttivo() {
-        return attivo;
+    public boolean isTimbrato() {
+        return timbrato;
     }
 
     public LocalDate getDataVidimazione() {
@@ -42,7 +48,7 @@ public class Biglietto extends TitoloViaggio {
     @Override
     public String toString() {
         return "Biglietti{" +
-                "attivo=" + attivo +
+                "timbrato=" + timbrato +
                 ", dataVidimazione=" + dataVidimazione +
                 '}' + super.toString();
     }

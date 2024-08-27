@@ -2,6 +2,7 @@ package aalbertocoscia.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +19,9 @@ public class Tratta {
     private String capolinea;
     @Column(name = "durata_prevista")
     private int durataPrevista;
+
+    @OneToMany(mappedBy = "tratta")
+    private List<Viaggio> listViaggi;
 
     public Tratta() {
     }

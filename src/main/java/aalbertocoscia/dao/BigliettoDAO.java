@@ -1,6 +1,7 @@
 package aalbertocoscia.dao;
 
 import aalbertocoscia.entities.Biglietto;
+import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -9,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-public class BigliettiDAO extends TitoloViaggioDAO<Biglietto> {
+public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
 
-    public BigliettiDAO(EntityManager em) {
+    public BigliettoDAO(EntityManager em) {
         super(em, Biglietto.class);
     }
 
@@ -21,6 +22,12 @@ public class BigliettiDAO extends TitoloViaggioDAO<Biglietto> {
         em.persist(biglietto);
         transaction.commit();
         System.out.println("Biglietto " + biglietto.getId() + " salvato correttamente");
+    }
+
+    public Biglietto findById(String id) {
+        Biglietto found = em.find(Biglietto.class, UUID.fromString(id));
+        if (found == null) throw new NotFoundException(id);
+        return found;
     }
 
     public void deleteById(UUID id) {

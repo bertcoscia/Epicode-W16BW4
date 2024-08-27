@@ -3,6 +3,7 @@ package aalbertocoscia.entities;
 import aalbertocoscia.enums.StatoMezzo;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -20,6 +21,9 @@ public class Mezzo {
     @Enumerated(EnumType.STRING)
     @Column(name = "stato_mezzo")
     private StatoMezzo statoMezzo;
+
+    @OneToMany(mappedBy = "mezzo")
+    private List<Viaggio> listViaggi;
 
     public Mezzo(int capienza, StatoMezzo statoMezzo) {
         this.capienza = capienza;

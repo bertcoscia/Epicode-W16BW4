@@ -10,9 +10,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-public class AbbonamentiDAO extends TitoloViaggioDAO<Abbonamento> {
+public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
 
-    public AbbonamentiDAO(EntityManager em) {
+    public AbbonamentoDAO(EntityManager em) {
         super(em, Abbonamento.class);
     }
 
