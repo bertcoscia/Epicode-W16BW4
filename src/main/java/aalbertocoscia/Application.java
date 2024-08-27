@@ -2,6 +2,7 @@ package aalbertocoscia;
 
 import aalbertocoscia.dao.*;
 import aalbertocoscia.entities.*;
+import aalbertocoscia.enums.DurataAbbonamento;
 import aalbertocoscia.enums.StatoDistributoreAutomatico;
 import aalbertocoscia.enums.StatoMezzo;
 import com.github.javafaker.Faker;
@@ -21,16 +22,22 @@ public class Application {
         UserDAO ud = new UserDAO(em);
         TesseraDAO ted = new TesseraDAO(em);
         VenditoreDAO vd = new VenditoreDAO(em);
+
         TrattaDAO trd = new TrattaDAO(em);
         MezzoDAO md = new MezzoDAO(em);
         ManutenzioneDAO mad = new ManutenzioneDAO(em);
 
-        //User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
-        //User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
+        AbbonamentiDAO ad = new AbbonamentiDAO(em);
+        BigliettiDAO bd = new BigliettiDAO(em);
+
+
+        User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
+        User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
         //ud.save(sergioMattarella);
         //ud.save(user2);
-        //User sergioMattarellaFromDb = ud.findUserById("e8161585-b715-4be9-b59c-024c6205918b");
-        //User user2FromDb = ud.findUserById("d6521de9-054e-457e-9fc4-436346feec48");
+        User sergioMattarellaFromDb = ud.findUserById("388bbf52-783c-4dbf-8c02-955738e21e35");
+        User user2FromDb = ud.findUserById("1cef502c-3b41-4d19-bd80-bc2644fe48fe");
+        //System.out.println("l'utente trovato è:" + sergioMattarellaFromDb);
 
         //Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
         //Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
@@ -42,6 +49,7 @@ public class Application {
         //vd.save(dist1);
         //vd.save(dist2);
         //vd.save(riv1);
+
 
         Tratta tra1 = new Tratta("81", faker.address().fullAddress(), faker.address().fullAddress(), faker.number().numberBetween(20, 90));
         Tratta tra2 = new Tratta("545", faker.address().fullAddress(), faker.address().fullAddress(), faker.number().numberBetween(20, 90));
@@ -60,6 +68,17 @@ public class Application {
         //md.save(tram2);
 
         System.out.println(trd.findAllTratte());
+
+        Abbonamenti abbonamento1 = new Abbonamenti("2024-08-27", DurataAbbonamento.SETTIMANALE);
+        Abbonamenti abbonamento2 = new Abbonamenti("2024-08-27", DurataAbbonamento.MENSILE);
+
+
+        Biglietti biglietto1 = new Biglietti("2024-08-27");
+
+        //ad.save(abbonamento1);
+        //ad.save(abbonamento2);
+        //bd.save(biglietto1);
+
 
         em.close();
         emf.close();
