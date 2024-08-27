@@ -1,20 +1,22 @@
 package aalbertocoscia.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
 @Entity
-public class Biglietti extends TitoloViaggio {
+@Table(name = "biglietti")
+public class Biglietto extends TitoloViaggio {
     private boolean attivo;
     private LocalDate dataVidimazione;
 
     private double prezzo;
 
-    public Biglietti() {
+    public Biglietto() {
     }
 
-    public Biglietti(String data_emissione) {
+    public Biglietto(String data_emissione) {
         super(data_emissione);
         this.prezzo = 1.50;
         this.attivo = true;

@@ -6,7 +6,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "tratte")
-
 public class Tratta {
     @Id
     @GeneratedValue

@@ -1,6 +1,6 @@
 package aalbertocoscia.dao;
 
-import aalbertocoscia.entities.Abbonamenti;
+import aalbertocoscia.entities.Abbonamento;
 import aalbertocoscia.enums.DurataAbbonamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -10,22 +10,22 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-public class AbbonamentiDAO extends TitoloViaggioDAO<Abbonamenti> {
+public class AbbonamentiDAO extends TitoloViaggioDAO<Abbonamento> {
 
     public AbbonamentiDAO(EntityManager em) {
-        super(em, Abbonamenti.class);
+        super(em, Abbonamento.class);
     }
 
-    public void save(Abbonamenti abbonamenti) {
+    public void save(Abbonamento abbonamento) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(abbonamenti);
+        em.persist(abbonamento);
         transaction.commit();
-        System.out.println("Abbonamento " + abbonamenti.getId() + " salvato correttamente");
+        System.out.println("Abbonamento " + abbonamento.getId() + " salvato correttamente");
     }
 
     public void deleteById(UUID id) {
-        Abbonamenti found = findById(id);
+        Abbonamento found = findById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
@@ -37,20 +37,20 @@ public class AbbonamentiDAO extends TitoloViaggioDAO<Abbonamenti> {
         }
     }
 
-    public List<Abbonamenti> findAbbonamentiByScadenza(LocalDate scadenza) {
-        TypedQuery<Abbonamenti> query = em.createQuery(
+    public List<Abbonamento> findAbbonamentiByScadenza(LocalDate scadenza) {
+        TypedQuery<Abbonamento> query = em.createQuery(
                 "SELECT a FROM Abbonamenti a WHERE a.data_scadenza <= :scadenza",
-                Abbonamenti.class
+                Abbonamento.class
         );
         query.setParameter("scadenza", scadenza);
         return query.getResultList();
     }
 
     // Trova tutti gli abbonamenti con una certa durata
-    public List<Abbonamenti> findAbbonamentiByDurata(DurataAbbonamento durata) {
-        TypedQuery<Abbonamenti> query = em.createQuery(
+    public List<Abbonamento> findAbbonamentiByDurata(DurataAbbonamento durata) {
+        TypedQuery<Abbonamento> query = em.createQuery(
                 "SELECT a FROM Abbonamenti a WHERE a.durata = :durata",
-                Abbonamenti.class
+                Abbonamento.class
         );
         query.setParameter("durata", durata);
         return query.getResultList();

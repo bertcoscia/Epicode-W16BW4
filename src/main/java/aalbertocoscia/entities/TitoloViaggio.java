@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "titoli_di_viaggio")
 public abstract class TitoloViaggio {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

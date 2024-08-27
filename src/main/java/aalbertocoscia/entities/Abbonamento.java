@@ -4,11 +4,13 @@ import aalbertocoscia.enums.DurataAbbonamento;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
 
 import java.time.LocalDate;
 
 @Entity
-public class Abbonamenti extends TitoloViaggio {
+@Table(name = "abbonamenti")
+public class Abbonamento extends TitoloViaggio {
 
     @Enumerated(EnumType.STRING)
     private DurataAbbonamento durata;
@@ -16,10 +18,10 @@ public class Abbonamenti extends TitoloViaggio {
     private double prezzo;
 
 
-    public Abbonamenti() {
+    public Abbonamento() {
     }
 
-    public Abbonamenti(String data_emissione, DurataAbbonamento durata) {
+    public Abbonamento(String data_emissione, DurataAbbonamento durata) {
         super(data_emissione);
         this.durata = durata;
         this.data_scadenza = this.durata == DurataAbbonamento.SETTIMANALE ? this.getData_emissione().plusDays(6) : this.getData_emissione().plusMonths(1);

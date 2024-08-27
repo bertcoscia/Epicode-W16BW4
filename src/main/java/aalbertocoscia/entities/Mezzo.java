@@ -17,6 +17,7 @@ public class Mezzo {
     @Column(name = "id_mezzo")
     private UUID idMezzo;
     private int capienza;
+    @Enumerated(EnumType.STRING)
     @Column(name = "stato_mezzo")
     private StatoMezzo statoMezzo;
 
@@ -36,20 +37,20 @@ public class Mezzo {
         this.idMezzo = idMezzo;
     }
 
-    public void setCapienza(int capienza) {
-        this.capienza = capienza;
-    }
-
-    public void setStatoMezzo(StatoMezzo statoMezzo) {
-        this.statoMezzo = statoMezzo;
-    }
-
     public int getCapienza() {
         return capienza;
     }
 
+    public void setCapienza(int capienza) {
+        this.capienza = capienza;
+    }
+
     public StatoMezzo getStatoMezzo() {
         return statoMezzo;
+    }
+
+    public void setStatoMezzo(StatoMezzo statoMezzo) {
+        this.statoMezzo = statoMezzo;
     }
 
     @Override

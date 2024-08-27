@@ -1,6 +1,6 @@
 package aalbertocoscia.dao;
 
-import aalbertocoscia.entities.Biglietti;
+import aalbertocoscia.entities.Biglietto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
@@ -9,22 +9,22 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
-public class BigliettiDAO extends TitoloViaggioDAO<Biglietti> {
+public class BigliettiDAO extends TitoloViaggioDAO<Biglietto> {
 
     public BigliettiDAO(EntityManager em) {
-        super(em, Biglietti.class);
+        super(em, Biglietto.class);
     }
 
-    public void save(Biglietti biglietti) {
+    public void save(Biglietto biglietto) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(biglietti);
+        em.persist(biglietto);
         transaction.commit();
-        System.out.println("Biglietto " + biglietti.getId() + " salvato correttamente");
+        System.out.println("Biglietto " + biglietto.getId() + " salvato correttamente");
     }
 
     public void deleteById(UUID id) {
-        Biglietti found = findById(id);
+        Biglietto found = findById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
@@ -36,19 +36,19 @@ public class BigliettiDAO extends TitoloViaggioDAO<Biglietti> {
         }
     }
 
-    public List<Biglietti> findBigliettiAttivi() {
-        TypedQuery<Biglietti> query = em.createQuery(
+    public List<Biglietto> findBigliettiAttivi() {
+        TypedQuery<Biglietto> query = em.createQuery(
                 "SELECT b FROM Biglietti b WHERE b.attivo = true",
-                Biglietti.class
+                Biglietto.class
         );
         return query.getResultList();
     }
 
 
-    public List<Biglietti> findBigliettiByDataVidimazione(LocalDate dataVidimazione) {
-        TypedQuery<Biglietti> query = em.createQuery(
+    public List<Biglietto> findBigliettiByDataVidimazione(LocalDate dataVidimazione) {
+        TypedQuery<Biglietto> query = em.createQuery(
                 "SELECT b FROM Biglietti b WHERE b.dataVidimazione <= :dataVidimazione",
-                Biglietti.class
+                Biglietto.class
         );
         query.setParameter("dataVidimazione", dataVidimazione);
         return query.getResultList();
