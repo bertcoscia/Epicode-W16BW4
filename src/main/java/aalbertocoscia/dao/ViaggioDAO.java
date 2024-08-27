@@ -1,9 +1,12 @@
 package aalbertocoscia.dao;
 
+import aalbertocoscia.entities.Mezzo;
+import aalbertocoscia.entities.Tratta;
 import aalbertocoscia.entities.Viaggio;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -46,4 +49,28 @@ public class ViaggioDAO {
         );
         return query.getResultList();
     }
+
+    public int countViaggi(Mezzo mezzo, Tratta tratta) {
+        Query query = em.createQuery(
+                "SELECT COUNT(v) FROM Viaggio v WHERE v.mezzo = :mezzo AND v.tratta = :tratta"
+        );
+        query.setParameter("mezzo", mezzo);
+        query.setParameter("tratta", tratta);
+
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
+    public double tempoMedioViaggio(Mezzo mezzo, Tratta tratta) {
+        TypedQuery<Double> query = em.createQuery(
+                "SELECT AVG(v.durataEffettiva) FROM Viaggio v WHERE v.mezzo = :mezzo AND v.tratta = :tratta",
+                Double.class
+        );
+        query.setParameter("mezzo", mezzo);
+        query.setParameter("tratta", tratta);
+
+        Double tempoMedio = query.getSingleResult();
+        return (tempoMedio != null) ? tempoMedio : 0.0;
+    }
+
 }
