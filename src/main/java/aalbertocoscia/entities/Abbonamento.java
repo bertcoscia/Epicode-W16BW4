@@ -1,10 +1,7 @@
 package aalbertocoscia.entities;
 
 import aalbertocoscia.enums.DurataAbbonamento;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -17,15 +14,19 @@ public class Abbonamento extends TitoloViaggio {
     private LocalDate data_scadenza;
     private double prezzo;
 
+    @OneToOne(mappedBy = "abbonamento")
+    private Tessera tessera;
+
 
     public Abbonamento() {
     }
 
-    public Abbonamento(String data_emissione, DurataAbbonamento durata) {
-        super(data_emissione);
+    public Abbonamento(String data_emissione, Venditore venditore, DurataAbbonamento durata, Tessera tessera) {
+        super(data_emissione, venditore);
         this.durata = durata;
         this.data_scadenza = this.durata == DurataAbbonamento.SETTIMANALE ? this.getData_emissione().plusDays(6) : this.getData_emissione().plusMonths(1);
         this.prezzo = this.durata == DurataAbbonamento.SETTIMANALE ? 20.50 : 38;
+        this.tessera = tessera;
     }
 
     public DurataAbbonamento getDurata() {

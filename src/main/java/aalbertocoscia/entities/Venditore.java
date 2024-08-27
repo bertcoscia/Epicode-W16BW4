@@ -1,7 +1,9 @@
 package aalbertocoscia.entities;
 
+import aalbertocoscia.enums.DurataAbbonamento;
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,11 +18,22 @@ public class Venditore {
     private UUID idVenditore;
     private String indirizzo;
 
+    @OneToMany(mappedBy = "venditore")
+    private List<Biglietto> listBiglietti;
+
     public Venditore() {
     }
 
     public Venditore(String indirizzo) {
         this.indirizzo = indirizzo;
+    }
+
+    public Biglietto emettiBiglietto(String data_emissione) {
+        return new Biglietto(data_emissione, this);
+    }
+
+    public Abbonamento emettiAbbonamento(String data_emissione, DurataAbbonamento durata, Tessera tessera) {
+        return new Abbonamento(data_emissione, this, durata, tessera);
     }
 
     public UUID getIdVenditore() {

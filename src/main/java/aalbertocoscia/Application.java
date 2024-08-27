@@ -2,7 +2,6 @@ package aalbertocoscia;
 
 import aalbertocoscia.dao.*;
 import aalbertocoscia.entities.*;
-import aalbertocoscia.enums.DurataAbbonamento;
 import aalbertocoscia.enums.StatoDistributoreAutomatico;
 import aalbertocoscia.enums.StatoMezzo;
 import com.github.javafaker.Faker;
@@ -37,8 +36,10 @@ public class Application {
 
         User sergioMattarellaFromDb = ud.findUserById("b6b1e56c-e3e7-45f4-a26a-fef02b2ae4dc");
         User user2FromDb = ud.findUserById("85afd4c3-832e-4b8e-8fcb-4d9eb9509557");
-        Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
-        Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
+        //Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
+        //Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
+
+        Tessera tes1FromDb = ted.findTesseraById("0b1f7927-7076-4104-ba79-2bd7074f7c46");
 
         //ted.save(tes1);
         //ted.save(tes2);
@@ -46,6 +47,7 @@ public class Application {
         DistributoreAutomatico dist1 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.ATTIVO);
         DistributoreAutomatico dist2 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.FUORI_SERVIZIO);
         Rivenditore riv1 = new Rivenditore(faker.address().fullAddress(), faker.company().name());
+        DistributoreAutomatico dist1FromDb = ved.findDistAutById("2bdb834e-c2cf-4d1f-941b-973d8e528613");
 
         //vd.save(dist1);
         //vd.save(dist2);
@@ -77,26 +79,29 @@ public class Application {
         //mad.save(man2);
 
 
-        Abbonamento abbonamento1 = new Abbonamento("2024-08-27", DurataAbbonamento.SETTIMANALE);
-        Abbonamento abbonamento2 = new Abbonamento("2024-08-27", DurataAbbonamento.MENSILE);
-        Biglietto biglietto1 = new Biglietto("2024-08-27");
-        Biglietto biglietto1FromDb = bd.findById("cb147a2d-67b6-4e36-8f47-e4a792cb9878");
+        //Abbonamento abbonamento1 = new Abbonamento("2024-08-27", DurataAbbonamento.SETTIMANALE);
+        //Abbonamento abbonamento2 = new Abbonamento("2024-08-27", DurataAbbonamento.MENSILE);
+        //Biglietto biglietto1 = new Biglietto("2024-08-27");
+        //Biglietto biglietto1FromDb = bd.findById("cb147a2d-67b6-4e36-8f47-e4a792cb9878");
 
         //ad.save(abbonamento1);
         //ad.save(abbonamento2);
         //bd.save(biglietto1);
 
-        Viaggio viaggio1 = new Viaggio(54, mez1FromDb, tra1FromDb);
-        Viaggio viaggio2 = new Viaggio(40, tram2FromDb, tra2FromDb);
-        Viaggio viaggio1FromDb = vid.findViaggioById("ab0c971d-75d1-4ec0-8cdd-b162226d34bc");
-
-        System.out.println("BIGLIETTO PRIMA " + biglietto1FromDb);
-        biglietto1FromDb.timbraBiglietto(viaggio1FromDb);
-        bd.save(biglietto1FromDb);
-        System.out.println("BIGLIETTO DOPO " + biglietto1FromDb);
+        //Viaggio viaggio1 = new Viaggio(54, mez1FromDb, tra1FromDb);
+        //Viaggio viaggio2 = new Viaggio(40, tram2FromDb, tra2FromDb);
+        //Viaggio viaggio1FromDb = vid.findViaggioById("ab0c971d-75d1-4ec0-8cdd-b162226d34bc");
 
         //vid.save(viaggio1);
         //vid.save(viaggio2);
+
+        Biglietto biglietto1 = dist1FromDb.emettiBiglietto("2024-08-27");
+        Biglietto biglietto2 = dist1FromDb.emettiBiglietto("2024-05-12");
+        //Abbonamento abb1 = dist1FromDb.emettiAbbonamento("2024-08-27", DurataAbbonamento.MENSILE, tes1FromDb);
+
+        //System.out.println(ved.countBigliettiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
+        //System.out.println(ved.countAbbonamentiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
+        //System.out.println(ved.countAbbonamentiAndBigliettiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
 
 
         em.close();

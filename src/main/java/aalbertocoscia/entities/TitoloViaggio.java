@@ -14,11 +14,14 @@ public abstract class TitoloViaggio {
     private UUID id;
     private LocalDate data_emissione;
 
+    @ManyToOne
+    @JoinColumn(name = "id_venditore")
+    private Venditore venditore;
 
-    public TitoloViaggio(String data_emissione) {
 
+    public TitoloViaggio(String data_emissione, Venditore venditore) {
         this.data_emissione = LocalDate.parse(data_emissione);
-
+        this.venditore = venditore;
     }
 
     public TitoloViaggio() {

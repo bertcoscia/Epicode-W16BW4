@@ -21,8 +21,8 @@ public class Biglietto extends TitoloViaggio {
     public Biglietto() {
     }
 
-    public Biglietto(String data_emissione) {
-        super(data_emissione);
+    public Biglietto(String data_emissione, Venditore venditore) {
+        super(data_emissione, venditore);
         this.prezzo = 1.50;
         this.timbrato = false;
     }
