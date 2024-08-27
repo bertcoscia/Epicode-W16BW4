@@ -37,8 +37,7 @@ public class Application {
         DistributoreAutomatico dist1 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.ATTIVO);
         DistributoreAutomatico dist2 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.FUORI_SERVIZIO);
         Rivenditore riv1 = new Rivenditore(faker.address().fullAddress(), faker.company().name());
-
-        System.out.println(vd.findAllVenditori());
+        
 
         em.close();
         emf.close();
