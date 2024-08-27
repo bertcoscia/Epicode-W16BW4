@@ -7,6 +7,8 @@ import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
+import java.util.UUID;
+
 public class MezzoDAO {
     private final EntityManager em;
 
@@ -22,8 +24,8 @@ public class MezzoDAO {
         System.out.println("Il mezzo con id " + mezzo.getIdMezzo() + " è stato salvato correttamente!");
     }
 
-    public Mezzo findById(String idMezzo) {
-        Mezzo found = em.find(Mezzo.class, idMezzo);
+    public Mezzo findMezzoById(String idMezzo) {
+        Mezzo found = em.find(Mezzo.class, UUID.fromString(idMezzo));
         if (found == null) throw new NotFoundException(idMezzo);
         return found;
     }
@@ -42,7 +44,7 @@ public class MezzoDAO {
 
 
     public void findTesseraByIdAndDelete(String id) {
-        Mezzo found = findById(id);
+        Mezzo found = findMezzoById(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.remove(found);

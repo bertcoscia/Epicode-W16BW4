@@ -1,6 +1,6 @@
 package aalbertocoscia.entities;
 
-import eunms.StatoMezzo;
+import aalbertocoscia.enums.StatoMezzo;
 import jakarta.persistence.*;
 
 import java.util.UUID;
@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Mezzo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     @Column(name = "id_mezzo")
     private UUID idMezzo;
     private int capienza;

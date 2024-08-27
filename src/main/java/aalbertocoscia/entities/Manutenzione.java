@@ -16,6 +16,7 @@ public class Manutenzione {
     private LocalDate dataInizio;
     @Column(name = "data_fine")
     private LocalDate dataFine;
+    private String motivo;
 
     @ManyToOne
     @JoinColumn(name = "id_mezzo", nullable = false)
@@ -24,10 +25,11 @@ public class Manutenzione {
     public Manutenzione() {
     }
 
-    public Manutenzione(UUID idManutenzione, LocalDate dataInizio, LocalDate dataFine) {
-        this.idManutenzione = idManutenzione;
-        this.dataInizio = dataInizio;
-        this.dataFine = dataFine;
+    public Manutenzione(String dataInizio, String dataFine, String motivo, Mezzo mezzo) {
+        this.dataInizio = LocalDate.parse(dataInizio);
+        this.dataFine = LocalDate.parse(dataFine);
+        this.motivo = motivo;
+        this.mezzo = mezzo;
     }
 
     public UUID getIdManutenzione() {
@@ -44,6 +46,14 @@ public class Manutenzione {
 
     public LocalDate getDataFine() {
         return dataFine;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public void setDataFine(LocalDate dataFine) {

@@ -1,6 +1,7 @@
 package aalbertocoscia.entities;
 
-import eunms.StatoMezzo;
+
+import aalbertocoscia.enums.StatoMezzo;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 
@@ -10,6 +11,9 @@ public class Autobus extends Mezzo {
 
     public Autobus(int capienza, StatoMezzo statoMezzo) {
         super(capienza, statoMezzo);
+    }
+
+    public Autobus() {
     }
 
     @Override
