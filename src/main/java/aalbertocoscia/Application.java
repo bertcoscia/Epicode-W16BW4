@@ -2,8 +2,12 @@ package aalbertocoscia;
 
 import aalbertocoscia.dao.TesseraDAO;
 import aalbertocoscia.dao.UserDAO;
+import aalbertocoscia.dao.VenditoreDAO;
+import aalbertocoscia.entities.DistributoreAutomatico;
+import aalbertocoscia.entities.Rivenditore;
 import aalbertocoscia.entities.Tessera;
 import aalbertocoscia.entities.User;
+import aalbertocoscia.enums.StatoDistributoreAutomatico;
 import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -19,6 +23,8 @@ public class Application {
 
         UserDAO ud = new UserDAO(em);
         TesseraDAO td = new TesseraDAO(em);
+        VenditoreDAO vd = new VenditoreDAO(em);
+
 
         User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
         User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
@@ -28,10 +34,11 @@ public class Application {
         Tessera tes1 = new Tessera("2024-01-01", sergioMattarellaFromDb);
         Tessera tes2 = new Tessera("2024-08-21", user2FromDb);
 
-        td.save(tes1);
-        td.save(tes2);
+        DistributoreAutomatico dist1 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.ATTIVO);
+        DistributoreAutomatico dist2 = new DistributoreAutomatico(faker.address().fullAddress(), StatoDistributoreAutomatico.FUORI_SERVIZIO);
+        Rivenditore riv1 = new Rivenditore(faker.address().fullAddress(), faker.company().name());
 
-        System.out.println(td.findAllTessere());
+        System.out.println(vd.findAllVenditori());
 
         em.close();
         emf.close();
