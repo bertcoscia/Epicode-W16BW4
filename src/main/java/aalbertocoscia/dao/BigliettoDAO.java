@@ -102,4 +102,14 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         Long count = (Long) query.getSingleResult();
         return count.intValue();
     }
+
+    public int countBigliettiTimbratiInPeriodoDiTempo(String startDate, String endDate) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.dataVidimazione BETWEEN :startDate AND :endDate"
+        );
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("endDate", LocalDate.parse(endDate));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
 }
