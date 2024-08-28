@@ -4,6 +4,7 @@ import aalbertocoscia.entities.User;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -48,13 +49,17 @@ public class UserDAO {
     }
 
     public User findUserByEmailAndPassword(String email, String password) {
-        TypedQuery<User> query = em.createQuery(
-                "SELECT u FROM User u WHERE u.email = :email AND u.password = :password",
-                User.class
-        );
-        query.setParameter("email", email);
-        query.setParameter("password", password);
-        return query.getSingleResult();
+        try {
+            TypedQuery<User> query = em.createQuery(
+                    "SELECT u FROM User u WHERE u.email = :email AND u.password = :password",
+                    User.class
+            );
+            query.setParameter("email", email);
+            query.setParameter("password", password);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 
     /*public boolean isAbbonamentoValidoByUser(User u) {
