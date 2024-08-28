@@ -40,7 +40,7 @@ public class ManutenzioneDAO {
         System.out.println("Manutenzione numero " + found.getIdManutenzione() + " rimossa correttamente");
     }
 
-    public List<Manutenzione> findAllTessere() {
+    public List<Manutenzione> findAllManutenzioni() {
         TypedQuery<Manutenzione> query = em.createQuery(
                 "SELECT t FROM Manutenzioni t",
                 Manutenzione.class

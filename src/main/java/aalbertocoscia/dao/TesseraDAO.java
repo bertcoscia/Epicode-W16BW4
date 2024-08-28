@@ -46,4 +46,12 @@ public class TesseraDAO {
         );
         return query.getResultList();
     }
+
+    public Tessera findTesseraByUserId(String id) {
+        TypedQuery<Tessera> query = em.createQuery(
+                "SELECT t FROM Tessera t WHERE t.user.idUser = :id",
+                Tessera.class);
+        query.setParameter("id", id);
+        return query.getSingleResult();
+    }
 }

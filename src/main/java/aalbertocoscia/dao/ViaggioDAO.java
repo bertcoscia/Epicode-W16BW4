@@ -72,6 +72,5 @@ public class ViaggioDAO {
         Double tempoMedio = query.getSingleResult();
         return (tempoMedio != null) ? tempoMedio : 0.0;
     }
-
 }
 

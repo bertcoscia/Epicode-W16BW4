@@ -26,14 +26,14 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         System.out.println("Biglietto " + biglietto.getId() + " salvato correttamente");
     }
 
-    public Biglietto findById(String id) {
+    public Biglietto findBigliettoById(String id) {
         Biglietto found = em.find(Biglietto.class, UUID.fromString(id));
         if (found == null) throw new NotFoundException(id);
         return found;
     }
 
     public void deleteById(String id) {
-        Biglietto found = findById(id);
+        Biglietto found = findBigliettoById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
@@ -45,9 +45,9 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         }
     }
 
-    public List<Biglietto> findBigliettiAttivi() {
+    public List<Biglietto> findBigliettiNonTimbrati() {
         TypedQuery<Biglietto> query = em.createQuery(
-                "SELECT b FROM Biglietti b WHERE b.attivo = true",
+                "SELECT b FROM Biglietto b WHERE b.timbrato = false",
                 Biglietto.class
         );
         return query.getResultList();
@@ -56,7 +56,7 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
 
     public List<Biglietto> findBigliettiByDataVidimazione(LocalDate dataVidimazione) {
         TypedQuery<Biglietto> query = em.createQuery(
-                "SELECT b FROM Biglietti b WHERE b.dataVidimazione <= :dataVidimazione",
+                "SELECT b FROM Biglietto b WHERE b.dataVidimazione = :dataVidimazione",
                 Biglietto.class
         );
         query.setParameter("dataVidimazione", dataVidimazione);
@@ -112,4 +112,14 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         Long count = (Long) query.getSingleResult();
         return count.intValue();
     }
+
+    public int countBigliettiTimbratiByMezzo(String idMezzo) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b JOIN Viaggio v ON b.viaggio.idViaggio = v.idViaggio WHERE v.mezzo.idMezzo = :idMezzo"
+        );
+        query.setParameter("idMezzo", UUID.fromString(idMezzo));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
 }

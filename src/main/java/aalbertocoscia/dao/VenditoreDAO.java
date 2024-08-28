@@ -64,15 +64,6 @@ public class VenditoreDAO {
         return query.getResultList();
     }
 
-    public int countBigliettiByVenditore(String id) {
-        Query query = em.createQuery(
-                "SELECT COUNT(b) FROM Biglietto b WHERE b.venditore.idVenditore = :id"
-        );
-        query.setParameter("id", UUID.fromString(id));
-        Long count = (Long) query.getSingleResult();
-        return count.intValue();
-    }
-
     public int countAbbonamentiByVenditore(String id) {
         Query query = em.createQuery(
                 "SELECT COUNT(a) FROM Abbonamento a WHERE a.venditore.idVenditore = :id"
@@ -82,7 +73,16 @@ public class VenditoreDAO {
         return count.intValue();
     }
 
-    public Map<String, Integer> countAbbonamentiAndBigliettiByVenditore(String id) {
+    public int countBigliettiByVenditore(String id) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.venditore.idVenditore = :id"
+        );
+        query.setParameter("id", UUID.fromString(id));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
+    public Map<String, Integer> countTitoliViaggioByVenditore(String id) {
         int numAbbonamenti = countAbbonamentiByVenditore(id);
         int numBiglietti = countBigliettiByVenditore(id);
         Map<String, Integer> result = new HashMap<>();

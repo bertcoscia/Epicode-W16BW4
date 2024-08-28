@@ -3,6 +3,7 @@ package aalbertocoscia.dao;
 import aalbertocoscia.entities.Abbonamento;
 import aalbertocoscia.entities.Venditore;
 import aalbertocoscia.enums.DurataAbbonamento;
+import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Query;
@@ -26,8 +27,14 @@ public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
         System.out.println("Abbonamento " + abbonamento.getId() + " salvato correttamente");
     }
 
+    public Abbonamento findAbbonamentoById(String id) {
+        Abbonamento found = em.find(Abbonamento.class, UUID.fromString(id));
+        if (found == null) throw new NotFoundException(id);
+        return found;
+    }
+
     public void deleteById(String id) {
-        Abbonamento found = findById(id);
+        Abbonamento found = findAbbonamentoById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
             transaction.begin();
@@ -79,4 +86,5 @@ public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
         Long count = (Long) query.getSingleResult();
         return count.intValue();
     }
+
 }

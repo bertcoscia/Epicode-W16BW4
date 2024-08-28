@@ -130,7 +130,13 @@ public class Application {
 
         //System.out.println(bd.countBigliettiEmessiInPeriodoDiTempo("2024-08-01", "2024-08-28"));
         //System.out.println(bd.countBigliettiEmessiInPeriodoDiTempoByVenditore("2024-08-01", "2024-08-28", dis.getIdVenditore().toString()));
-        System.out.println(bd.countBigliettiTimbratiInPeriodoDiTempo("2024-06-27", "2024-06-28"));
+        //System.out.println(bd.countBigliettiTimbratiInPeriodoDiTempo("2024-06-27", "2024-06-28"));
+
+        //System.out.println(vid.countBigliettiTimbratiByMezzo("6451bf53-c52c-455e-ab22-48bb75f1bc6a"));
+        Biglietto b1 = bd.findById("3f7e4b1b-7e36-44aa-b6bb-59b609f73753");
+        Viaggio v2 = vid.findViaggioById("b02d9c25-cc45-457f-ae0f-1a36c9262128");
+
+        System.out.println(bd.countBigliettiTimbratiByMezzo("6451bf53-c52c-455e-ab22-48bb75f1bc6a"));
 
         em.close();
         emf.close();
