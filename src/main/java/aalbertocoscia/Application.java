@@ -129,7 +129,7 @@ public class Application {
         Biglietto big2 = new Biglietto("2024-08-28", dis);
 
         //System.out.println(bd.countBigliettiEmessiInPeriodoDiTempo("2024-08-01", "2024-08-28"));
-        System.out.println(ad.countAbbonamentiEmessiInPeriodoDiTempo("2024-08-01", "2024-08-28"));
+        System.out.println(bd.countBigliettiEmessiInPeriodoDiTempoByVenditore("2024-08-01", "2024-08-28", dis.getIdVenditore().toString()));
 
 
         em.close();

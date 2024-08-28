@@ -41,13 +41,20 @@ public abstract class TitoloViaggio {
         this.data_emissione = data_emissione;
     }
 
+    public Venditore getVenditore() {
+        return venditore;
+    }
+
+    public void setVenditore(Venditore venditore) {
+        this.venditore = venditore;
+    }
 
     @Override
     public String toString() {
         return "TitoloViaggio{" +
                 "id=" + id +
                 ", data_emissione=" + data_emissione +
-
+                ", venditore=" + venditore +
                 '}';
     }
 }

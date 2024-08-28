@@ -1,6 +1,7 @@
 package aalbertocoscia.dao;
 
 import aalbertocoscia.entities.Abbonamento;
+import aalbertocoscia.entities.Venditore;
 import aalbertocoscia.enums.DurataAbbonamento;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -9,6 +10,7 @@ import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
 
@@ -62,6 +64,18 @@ public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
         );
         query.setParameter("startDate", LocalDate.parse(startDate));
         query.setParameter("endDate", LocalDate.parse(endDate));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
+    public int countAbbonamentiEmessiInPeriodoDiTempoByVenditore(String startDate, String endDate, String idVenditore) {
+        Venditore found = em.find(Venditore.class, UUID.fromString(idVenditore));
+        Query query = em.createQuery(
+                "SELECT COUNT(a) FROM Abbonamento a WHERE a.data_emissione BETWEEN :startDate AND :endDate AND a.venditore.idVenditore = :idVenditore"
+        );
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("endDate", LocalDate.parse(endDate));
+        query.setParameter("idVenditore", found.getIdVenditore());
         Long count = (Long) query.getSingleResult();
         return count.intValue();
     }

@@ -1,6 +1,7 @@
 package aalbertocoscia.dao;
 
 import aalbertocoscia.entities.Biglietto;
+import aalbertocoscia.entities.Venditore;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -86,6 +87,18 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         );
         query.setParameter("startDate", LocalDate.parse(startDate));
         query.setParameter("endDate", LocalDate.parse(endDate));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
+    public int countBigliettiEmessiInPeriodoDiTempoByVenditore(String startDate, String endDate, String idVenditore) {
+        Venditore found = em.find(Venditore.class, UUID.fromString(idVenditore));
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.data_emissione BETWEEN :startDate AND :endDate AND b.venditore.idVenditore = :idVenditore"
+        );
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("endDate", LocalDate.parse(endDate));
+        query.setParameter("idVenditore", found.getIdVenditore());
         Long count = (Long) query.getSingleResult();
         return count.intValue();
     }
