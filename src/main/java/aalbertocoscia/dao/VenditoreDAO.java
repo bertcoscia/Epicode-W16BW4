@@ -58,7 +58,15 @@ public class VenditoreDAO {
 
     public List<Venditore> findAllVenditori() {
         TypedQuery<Venditore> query = em.createQuery(
-                "SELECT u FROM Venditore u",
+                "SELECT v FROM Venditore v",
+                Venditore.class
+        );
+        return query.getResultList();
+    }
+
+    public List<Venditore> findAllVenditoriAttivi() {
+        TypedQuery<Venditore> query = em.createQuery(
+                "SELECT v FROM Venditore v WHERE v.stato IS NULL OR v.stato = StatoDistributoreAutomatico.ATTIVO",
                 Venditore.class
         );
         return query.getResultList();

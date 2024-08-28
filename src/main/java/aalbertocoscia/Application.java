@@ -1,10 +1,17 @@
 package aalbertocoscia;
 
 import aalbertocoscia.dao.*;
+import aalbertocoscia.entities.Biglietto;
+import aalbertocoscia.entities.User;
+import aalbertocoscia.entities.Venditore;
 import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
 
 
 public class Application {
@@ -25,6 +32,70 @@ public class Application {
         UserDAO ud = new UserDAO(em);
         VenditoreDAO ved = new VenditoreDAO(em);
         ViaggioDAO vid = new ViaggioDAO(em);
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Scegli il tipo di utente");
+        System.out.println("1. Utente normale");
+        System.out.println("2. Amministratore");
+        System.out.println("0. Esci");
+
+        String action;
+
+        do {
+            String input = scanner.nextLine();
+            action = input;
+            switch (input) {
+                case "1":
+                    do {
+                        System.out.println("Scegli cosa vuoi fare");
+                        System.out.println("1. Crea un nuovo utente");
+                        System.out.println("2. Compra un biglietto");
+                        System.out.println("3. Compra un abbonamento");
+                        System.out.println("4. Effettua un viaggio");
+                        action = scanner.nextLine();
+                        switch (action) {
+                            case "1":
+                                System.out.println("Inserisci il nome");
+                                String nomeUser = scanner.nextLine();
+                                System.out.println("Inserisci il cognome");
+                                String cognomeUser = scanner.nextLine();
+                                System.out.println("Inserisci la data di nascita in questo formato YYYY-MM-DD");
+                                String dataNascita = scanner.nextLine();
+                                try {
+                                    User user = new User(nomeUser, cognomeUser, dataNascita);
+                                    ud.save(user);
+                                } catch (IllegalArgumentException e) {
+                                    System.err.println(e.getMessage());
+                                }
+                                break;
+                            case "2":
+                                List<Venditore> listaVenditori = ved.findAllVenditoriAttivi();
+                                for (int i = 0; i < listaVenditori.size(); i++) {
+                                    System.out.println(i + 1 + ". " + listaVenditori.get(i));
+                                }
+                                System.out.println("Scegli un venditore tra quelli nella lista");
+                                String inputVenditore = scanner.nextLine();
+                                Venditore venditoreScelto = listaVenditori.get(Integer.parseInt(inputVenditore) - 1);
+                                Biglietto nuovoBiglietto = venditoreScelto.emettiBiglietto(LocalDate.now().toString());
+                                bd.save(nuovoBiglietto);
+                        }
+                    } while (!action.equals("0"));
+                    break;
+                case "2":
+                    System.out.println("2");
+                    break;
+                default:
+                    if (!action.equals("0")) {
+                        System.out.println("Scegli un'opzione valida");
+                        System.out.println("1. Utente normale");
+                        System.out.println("2. Amministratore");
+                        System.out.println("0. Esci");
+                    } else {
+                        break;
+                    }
+            }
+        } while (!action.equals("0"));
 
 
         /*User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
