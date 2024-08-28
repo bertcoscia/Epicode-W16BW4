@@ -30,7 +30,7 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         return found;
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         Biglietto found = findById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();

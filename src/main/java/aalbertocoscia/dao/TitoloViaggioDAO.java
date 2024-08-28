@@ -26,13 +26,13 @@ public class TitoloViaggioDAO<T extends TitoloViaggio> {
         System.out.println("Il viaggio" + titoloViaggio.getId() + "è stato salvato correttamente");
     }
 
-    public T findById(UUID id) {
-        T found = em.find(entityClass, id);
-        if (found == null) throw new NotFoundException(id.toString());
+    public T findById(String id) {
+        T found = em.find(entityClass, UUID.fromString(id));
+        if (found == null) throw new NotFoundException(id);
         return found;
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         T found = findById(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();

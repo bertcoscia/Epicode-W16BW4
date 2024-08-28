@@ -8,7 +8,6 @@ import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.UUID;
 
 public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
 
@@ -24,7 +23,7 @@ public class AbbonamentoDAO extends TitoloViaggioDAO<Abbonamento> {
         System.out.println("Abbonamento " + abbonamento.getId() + " salvato correttamente");
     }
 
-    public void deleteById(UUID id) {
+    public void deleteById(String id) {
         Abbonamento found = findById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();

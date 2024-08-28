@@ -60,8 +60,8 @@ public class Application {
         //trd.save(tra1);
         //trd.save(tra2);
 
-        Tratta tra1FromDb = trd.findTrattaById("3b0df10a-e518-4a11-b60a-f36732487528");
-        Tratta tra2FromDb = trd.findTrattaById("853ddbe3-a495-45c6-926b-64ea29d94d64");
+        //Tratta tra1FromDb = trd.findTrattaById("3b0df10a-e518-4a11-b60a-f36732487528");
+        //Tratta tra2FromDb = trd.findTrattaById("853ddbe3-a495-45c6-926b-64ea29d94d64");
 
         Autobus mez1 = new Autobus(30, StatoMezzo.IN_SERVIZIO);
         Autobus mez2 = new Autobus(25, StatoMezzo.IN_MANUTENZIONE);
@@ -70,11 +70,11 @@ public class Application {
         //md.save(mez2);
         //md.save(tram2);
 
-        Mezzo mez1FromDb = med.findMezzoById("083c5d43-0f72-47ce-aedd-22f118c28c6d");
-        Mezzo mez2FromDb = med.findMezzoById("71de834d-0dae-4fa1-9431-8c15e2d8a1cd");
-        Mezzo tram2FromDb = med.findMezzoById("b63d1268-77fa-4c02-89ba-e25ae64c154d");
-        Manutenzione man1 = new Manutenzione("2020-07-26", "2020-10-05", "guasto al motore", mez1FromDb);
-        Manutenzione man2 = new Manutenzione("2021-01-06", "2021-01-15", "cambio gomme", mez2FromDb);
+        //Mezzo mez1FromDb = med.findMezzoById("083c5d43-0f72-47ce-aedd-22f118c28c6d");
+        //Mezzo mez2FromDb = med.findMezzoById("71de834d-0dae-4fa1-9431-8c15e2d8a1cd");
+        //Mezzo tram2FromDb = med.findMezzoById("b63d1268-77fa-4c02-89ba-e25ae64c154d");
+        //Manutenzione man1 = new Manutenzione("2020-07-26", "2020-10-05", "guasto al motore", mez1FromDb);
+        //Manutenzione man2 = new Manutenzione("2021-01-06", "2021-01-15", "cambio gomme", mez2FromDb);
         //mad.save(man1);
         //mad.save(man2);
 
@@ -88,10 +88,10 @@ public class Application {
         //ad.save(abbonamento2);
         //bd.save(biglietto1);
 
-        Viaggio viaggio1 = new Viaggio(54, mez1FromDb, tra1FromDb);
-        Viaggio viaggio2 = new Viaggio(50, mez1FromDb, tra1FromDb);
-        Viaggio viaggio3 = new Viaggio(30, tram2FromDb, tra2FromDb);
-        Viaggio viaggio4 = new Viaggio(40, tram2FromDb, tra2FromDb);
+        //Viaggio viaggio1 = new Viaggio(54, mez1FromDb, tra1FromDb);
+        //Viaggio viaggio2 = new Viaggio(50, mez1FromDb, tra1FromDb);
+        //Viaggio viaggio3 = new Viaggio(30, tram2FromDb, tra2FromDb);
+        //Viaggio viaggio4 = new Viaggio(40, tram2FromDb, tra2FromDb);
         //Viaggio viaggio1FromDb = vid.findViaggioById("ab0c971d-75d1-4ec0-8cdd-b162226d34bc");
 
         //vid.save(viaggio1);
@@ -106,12 +106,21 @@ public class Application {
         //System.out.println(ved.countBigliettiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
         //System.out.println(ved.countAbbonamentiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
         //System.out.println(ved.countAbbonamentiAndBigliettiByVenditore("2bdb834e-c2cf-4d1f-941b-973d8e528613"));
-        System.out.println(vid.countViaggi(mez1FromDb, tra1FromDb));
-        System.out.println(vid.countViaggi(tram2FromDb, tra2FromDb));
-        System.out.println(vid.tempoMedioViaggio(tram2FromDb, tra2FromDb));
-        System.out.println(vid.tempoMedioViaggio(mez1FromDb, tra1FromDb));
+        //System.out.println(vid.countViaggi(mez1FromDb, tra1FromDb));
+        //System.out.println(vid.countViaggi(tram2FromDb, tra2FromDb));
+        //System.out.println(vid.tempoMedioViaggio(tram2FromDb, tra2FromDb));
+        //System.out.println(vid.tempoMedioViaggio(mez1FromDb, tra1FromDb));
 
 
+        User mattarellaDb = ud.findUserById("b6b1e56c-e3e7-45f4-a26a-fef02b2ae4dc");
+        Abbonamento abb1 = ad.findById("4972d730-1104-46e9-97a8-df1213a5bda6");
+        Tessera tesseraMattarella = new Tessera("2024-04-01", mattarellaDb, abb1);
+        Tessera tesseraMattarellaDB = ted.findTesseraById("b931966e-bb03-43e5-bdfb-9824dae0b9f2");
+        System.out.println(mattarellaDb);
+
+        System.out.println(ud.isAbbonamentoValidoByUser(mattarellaDb));
+        System.out.println(ud.isAbbonamentoValidoById("b6b1e56c-e3e7-45f4-a26a-fef02b2ae4dc"));
+        System.out.println(mattarellaDb.isAbbonamentoValido());
         em.close();
         emf.close();
     }

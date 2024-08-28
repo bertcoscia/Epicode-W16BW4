@@ -18,7 +18,8 @@ public class User {
     @Column(name = "data_di_nascita")
     private LocalDate dataNascita;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "id_tessera")
     private Tessera tessera;
 
     public User() {
@@ -28,6 +29,11 @@ public class User {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = LocalDate.parse(dataNascita);
+    }
+
+    public boolean isAbbonamentoValido() {
+        LocalDate scadenzaAbbonamento = this.getTessera().getAbbonamento().getData_scadenza();
+        return scadenzaAbbonamento.isAfter(LocalDate.now());
     }
 
     public UUID getIdUser() {
@@ -58,6 +64,14 @@ public class User {
         this.dataNascita = dataNascita;
     }
 
+    public Tessera getTessera() {
+        return tessera;
+    }
+
+    public void setTessera(Tessera tessera) {
+        this.tessera = tessera;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -65,6 +79,7 @@ public class User {
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", dataNascita=" + dataNascita +
+                ", tessera=" + tessera +
                 '}';
     }
 }

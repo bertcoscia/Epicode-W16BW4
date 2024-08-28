@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.TypedQuery;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -45,5 +46,17 @@ public class UserDAO {
                 User.class
         );
         return query.getResultList();
+    }
+
+    public boolean isAbbonamentoValidoByUser(User u) {
+        User found = findUserById(u.getIdUser().toString());
+        LocalDate scadenzaAbbonamento = found.getTessera().getAbbonamento().getData_scadenza();
+        return scadenzaAbbonamento.isAfter(LocalDate.now());
+    }
+
+    public boolean isAbbonamentoValidoById(String userId) {
+        User found = findUserById(userId);
+        LocalDate scadenzaAbbonamento = found.getTessera().getAbbonamento().getData_scadenza();
+        return scadenzaAbbonamento.isAfter(LocalDate.now());
     }
 }

@@ -43,6 +43,7 @@ public class Tessera {
         this.abbonamento = abbonamento;
     }
 
+
     public UUID getIdTessera() {
         return idTessera;
     }
@@ -85,7 +86,7 @@ public class Tessera {
                 "idTessera=" + idTessera +
                 ", dataEmissione=" + dataEmissione +
                 ", dataScadenza=" + dataScadenza +
-                ", user=" + user +
+                //", user=" + user +
                 '}';
     }
 }
