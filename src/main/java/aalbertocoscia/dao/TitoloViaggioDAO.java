@@ -9,7 +9,7 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.UUID;
 
-public class TitoloViaggioDAO extends TitoloViaggio {
+public class TitoloViaggioDAO {
     protected final EntityManager em;
 
     public TitoloViaggioDAO(EntityManager em) {
