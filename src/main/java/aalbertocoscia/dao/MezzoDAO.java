@@ -43,7 +43,7 @@ public class MezzoDAO {
     }
 
 
-    public void findTesseraByIdAndDelete(String id) {
+    public void findMezzoByIdAndDelete(String id) {
         Mezzo found = findMezzoById(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
