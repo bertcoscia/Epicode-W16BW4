@@ -28,8 +28,8 @@ public class Venditore {
         this.indirizzo = indirizzo;
     }
 
-    public Biglietto emettiBiglietto(String data_emissione) {
-        return new Biglietto(data_emissione, this);
+    public Biglietto emettiBiglietto(String data_emissione, Tessera tessera) {
+        return new Biglietto(data_emissione, this, tessera);
     }
 
     public Abbonamento emettiAbbonamento(String data_emissione, DurataAbbonamento durata, Tessera tessera) {

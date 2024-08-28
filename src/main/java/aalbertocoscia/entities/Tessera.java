@@ -3,11 +3,14 @@ package aalbertocoscia.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "tessere")
 public class Tessera {
+    @OneToMany(mappedBy = "tessera")
+    List<Biglietto> listBiglietti;
     @Id
     @GeneratedValue
     @Column(name = "id_tessera", unique = true)
@@ -16,15 +19,12 @@ public class Tessera {
     private LocalDate dataEmissione;
     @Column(name = "data_scadenza")
     private LocalDate dataScadenza;
-
     @OneToOne
     @JoinColumn(name = "user_id", unique = true)
     private User user;
-
     @OneToOne
     @JoinColumn(name = "id_abbonamento")
     private Abbonamento abbonamento;
-
 
     public Tessera() {
     }
@@ -92,6 +92,7 @@ public class Tessera {
                 ", dataEmissione=" + dataEmissione +
                 ", dataScadenza=" + dataScadenza +
                 //", user=" + user +
+                ", listBiglietti=" + listBiglietti +
                 '}';
     }
 }

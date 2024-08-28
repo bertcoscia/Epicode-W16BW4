@@ -22,13 +22,23 @@ public class User {
     @JoinColumn(name = "id_tessera")
     private Tessera tessera;
 
+    @Column(unique = true)
+    private String email;
+    private String password;
+
     public User() {
     }
 
-    public User(String nome, String cognome, String dataNascita) {
+    public User(String nome, String cognome, String dataNascita, String email, String password) {
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = LocalDate.parse(dataNascita);
+        this.email = email;
+        this.password = password;
+    }
+
+    public Tessera creaTessera() {
+        return new Tessera(this, LocalDate.now().toString());
     }
 
     public boolean isAbbonamentoValido() {

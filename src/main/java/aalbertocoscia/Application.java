@@ -49,41 +49,42 @@ public class Application {
                 case "1":
                     do {
                         System.out.println("Scegli cosa vuoi fare");
-                        System.out.println("1. Crea un nuovo utente");
-                        System.out.println("2. Compra un biglietto");
-                        System.out.println("3. Compra un abbonamento");
-                        System.out.println("4. Effettua un viaggio");
+                        System.out.println("1. Login");
+                        System.out.println("2. Crea un nuovo utente");
+                        System.out.println("0. Esci");
                         action = scanner.nextLine();
                         switch (action) {
                             case "1":
-                                System.out.println("Inserisci il nome");
-                                String nomeUser = scanner.nextLine();
-                                System.out.println("Inserisci il cognome");
-                                String cognomeUser = scanner.nextLine();
-                                System.out.println("Inserisci la data di nascita in questo formato YYYY-MM-DD");
-                                String dataNascita = scanner.nextLine();
-                                try {
-                                    User user = new User(nomeUser, cognomeUser, dataNascita);
-                                    ud.save(user);
-                                } catch (IllegalArgumentException e) {
-                                    System.err.println(e.getMessage());
+                                System.out.println("Inserisci la tua email");
+                                String loginEmail = scanner.nextLine();
+                                System.out.println("Inserisci la tua password");
+                                String loginPassword = scanner.nextLine();
+                                User loggedInUser = ud.findUserByEmailAndPassword(loginEmail, loginPassword);
+                                System.out.println("Benvenuto/a " + loggedInUser.getNome());
+                                System.out.println("Scegli un'azione");
+                                System.out.println("1. Compra un biglietto");
+                                System.out.println("2. Compra un abbonamento");
+                                System.out.println("3. Effettua un viaggio");
+                                System.out.println("0. Esci");
+                                action = scanner.nextLine();
+                                switch (action) {
+                                    case "1":
+                                        List<Venditore> listaVenditori = ved.findAllVenditoriAttivi();
+                                        for (int i = 0; i < listaVenditori.size(); i++) {
+                                            System.out.println(i + 1 + ". " + listaVenditori.get(i));
+                                        }
+                                        System.out.println("Scegli un venditore tra quelli nella lista");
+                                        String inputVenditore = scanner.nextLine();
+                                        Venditore venditoreScelto = listaVenditori.get(Integer.parseInt(inputVenditore) - 1);
+                                        Biglietto nuovoBiglietto = venditoreScelto.emettiBiglietto(LocalDate.now().toString(), loggedInUser.getTessera());
+                                        bd.save(nuovoBiglietto);
                                 }
                                 break;
-                            case "2":
-                                List<Venditore> listaVenditori = ved.findAllVenditoriAttivi();
-                                for (int i = 0; i < listaVenditori.size(); i++) {
-                                    System.out.println(i + 1 + ". " + listaVenditori.get(i));
-                                }
-                                System.out.println("Scegli un venditore tra quelli nella lista");
-                                String inputVenditore = scanner.nextLine();
-                                Venditore venditoreScelto = listaVenditori.get(Integer.parseInt(inputVenditore) - 1);
-                                Biglietto nuovoBiglietto = venditoreScelto.emettiBiglietto(LocalDate.now().toString());
-                                bd.save(nuovoBiglietto);
                         }
                     } while (!action.equals("0"));
                     break;
                 case "2":
-                    System.out.println("2");
+                    System.out.println("Inserisci password");
                     break;
                 default:
                     if (!action.equals("0")) {
@@ -96,6 +97,8 @@ public class Application {
                     }
             }
         } while (!action.equals("0"));
+
+
 
 
         /*User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");

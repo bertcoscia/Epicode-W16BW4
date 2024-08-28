@@ -47,6 +47,16 @@ public class UserDAO {
         return query.getResultList();
     }
 
+    public User findUserByEmailAndPassword(String email, String password) {
+        TypedQuery<User> query = em.createQuery(
+                "SELECT u FROM User u WHERE u.email = :email AND u.password = :password",
+                User.class
+        );
+        query.setParameter("email", email);
+        query.setParameter("password", password);
+        return query.getSingleResult();
+    }
+
     /*public boolean isAbbonamentoValidoByUser(User u) {
         User found = findUserById(u.getIdUser().toString());
         LocalDate scadenzaAbbonamento = found.getTessera().getAbbonamento().getData_scadenza();

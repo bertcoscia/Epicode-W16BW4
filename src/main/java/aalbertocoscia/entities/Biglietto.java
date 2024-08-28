@@ -18,13 +18,18 @@ public class Biglietto extends TitoloViaggio {
     @JoinColumn(name = "id_viaggio")
     private Viaggio viaggio;
 
+    @ManyToOne
+    @JoinColumn(name = "id_tessera")
+    private Tessera tessera;
+
     public Biglietto() {
     }
 
-    public Biglietto(String data_emissione, Venditore venditore) {
+    public Biglietto(String data_emissione, Venditore venditore, Tessera tessera) {
         super(data_emissione, venditore);
         this.prezzo = 1.50;
         this.timbrato = false;
+        this.tessera = tessera;
     }
 
     public void timbraBiglietto(Viaggio viaggio) {
@@ -33,7 +38,6 @@ public class Biglietto extends TitoloViaggio {
         this.viaggio = viaggio;
         System.out.println("Biglietto timbrato correttamente");
     }
-
 
     public boolean isTimbrato() {
         return timbrato;
