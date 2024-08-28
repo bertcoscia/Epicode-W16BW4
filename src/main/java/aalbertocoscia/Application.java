@@ -116,11 +116,22 @@ public class Application {
         Abbonamento abb1 = ad.findById("4972d730-1104-46e9-97a8-df1213a5bda6");
         Tessera tesseraMattarella = new Tessera("2024-04-01", mattarellaDb, abb1);
         Tessera tesseraMattarellaDB = ted.findTesseraById("b931966e-bb03-43e5-bdfb-9824dae0b9f2");
-        System.out.println(mattarellaDb);
+        //System.out.println(mattarellaDb);
 
-        System.out.println(ud.isAbbonamentoValidoByUser(mattarellaDb));
-        System.out.println(ud.isAbbonamentoValidoById("b6b1e56c-e3e7-45f4-a26a-fef02b2ae4dc"));
-        System.out.println(mattarellaDb.isAbbonamentoValido());
+        //System.out.println(mattarellaDb.isAbbonamentoValido());
+        //System.out.println(tesseraMattarellaDB.isAbbonamentoValido());
+
+        //System.out.println(bd.countBigliettiByViaggio("ab0c971d-75d1-4ec0-8cdd-b162226d34bc"));
+
+        Biglietto big = bd.findById("4f09668e-f40c-47ce-ab08-40477401e499");
+        Viaggio v = vid.findViaggioById("ab0c971d-75d1-4ec0-8cdd-b162226d34bc");
+        DistributoreAutomatico dis = ved.findDistAutById("2bdb834e-c2cf-4d1f-941b-973d8e528613");
+        Biglietto big2 = new Biglietto("2024-08-28", dis);
+
+        //System.out.println(bd.countBigliettiEmessiInPeriodoDiTempo("2024-08-01", "2024-08-28"));
+        System.out.println(ad.countAbbonamentiEmessiInPeriodoDiTempo("2024-08-01", "2024-08-28"));
+
+
         em.close();
         emf.close();
     }

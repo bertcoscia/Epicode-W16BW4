@@ -31,7 +31,9 @@ public class Biglietto extends TitoloViaggio {
         this.timbrato = true;
         this.dataVidimazione = LocalDate.now();
         this.viaggio = viaggio;
+        System.out.println("Biglietto timbrato correttamente");
     }
+
 
     public boolean isTimbrato() {
         return timbrato;

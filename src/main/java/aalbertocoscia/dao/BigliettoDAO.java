@@ -4,6 +4,7 @@ import aalbertocoscia.entities.Biglietto;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.time.LocalDate;
@@ -59,5 +60,33 @@ public class BigliettoDAO extends TitoloViaggioDAO<Biglietto> {
         );
         query.setParameter("dataVidimazione", dataVidimazione);
         return query.getResultList();
+    }
+
+    public int countBigliettiByViaggio(String idViaggio) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.viaggio.idViaggio = :idViaggio"
+        );
+        query.setParameter("idViaggio", UUID.fromString(idViaggio));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
+    }
+
+    public List<Biglietto> findBigliettiByViaggio(String id) {
+        TypedQuery<Biglietto> query = em.createQuery(
+                "SELECT b FROM Biglietto b WHERE b.viaggio.idViaggio = :id",
+                Biglietto.class
+        );
+        query.setParameter("id", UUID.fromString(id));
+        return query.getResultList();
+    }
+
+    public int countBigliettiEmessiInPeriodoDiTempo(String startDate, String endDate) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.data_emissione BETWEEN :startDate AND :endDate"
+        );
+        query.setParameter("startDate", LocalDate.parse(startDate));
+        query.setParameter("endDate", LocalDate.parse(endDate));
+        Long count = (Long) query.getSingleResult();
+        return count.intValue();
     }
 }

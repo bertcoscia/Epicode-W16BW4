@@ -80,6 +80,11 @@ public class Tessera {
         this.abbonamento = abbonamento;
     }
 
+    public boolean isAbbonamentoValido() {
+        LocalDate scadenzaAbbonamento = this.getAbbonamento().getData_scadenza();
+        return scadenzaAbbonamento.isAfter(LocalDate.now());
+    }
+
     @Override
     public String toString() {
         return "Tessera{" +
