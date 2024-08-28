@@ -1,9 +1,6 @@
 package aalbertocoscia;
 
 import aalbertocoscia.dao.*;
-import aalbertocoscia.entities.*;
-import aalbertocoscia.enums.StatoDistributoreAutomatico;
-import aalbertocoscia.enums.StatoMezzo;
 import com.github.javafaker.Faker;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -18,18 +15,19 @@ public class Application {
         Faker faker = new Faker();
         EntityManager em = emf.createEntityManager();
 
-        UserDAO ud = new UserDAO(em);
-        TesseraDAO ted = new TesseraDAO(em);
-        VenditoreDAO ved = new VenditoreDAO(em);
-        TrattaDAO trd = new TrattaDAO(em);
-        MezzoDAO med = new MezzoDAO(em);
-        ManutenzioneDAO mad = new ManutenzioneDAO(em);
         AbbonamentoDAO ad = new AbbonamentoDAO(em);
         BigliettoDAO bd = new BigliettoDAO(em);
+        ManutenzioneDAO mad = new ManutenzioneDAO(em);
+        MezzoDAO med = new MezzoDAO(em);
+        TesseraDAO ted = new TesseraDAO(em);
+        TitoloViaggioDAO tvd = new TitoloViaggioDAO(em);
+        TrattaDAO trd = new TrattaDAO(em);
+        UserDAO ud = new UserDAO(em);
+        VenditoreDAO ved = new VenditoreDAO(em);
         ViaggioDAO vid = new ViaggioDAO(em);
 
 
-        User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
+        /*User sergioMattarella = new User("Sergio", "Mattarella", "1938-05-12");
         User user2 = new User(faker.dune().character(), faker.name().lastName(), "1998-04-15");
         //ud.save(sergioMattarella);
         //ud.save(user2);
@@ -136,7 +134,7 @@ public class Application {
         Biglietto b1 = bd.findById("3f7e4b1b-7e36-44aa-b6bb-59b609f73753");
         Viaggio v2 = vid.findViaggioById("b02d9c25-cc45-457f-ae0f-1a36c9262128");
 
-        System.out.println(bd.countBigliettiTimbratiByMezzo("6451bf53-c52c-455e-ab22-48bb75f1bc6a"));
+        System.out.println(bd.countBigliettiTimbratiByMezzo("6451bf53-c52c-455e-ab22-48bb75f1bc6a"));*/
 
         em.close();
         emf.close();

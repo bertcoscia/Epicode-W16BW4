@@ -9,16 +9,14 @@ import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.UUID;
 
-public class TitoloViaggioDAO<T extends TitoloViaggio> {
+public class TitoloViaggioDAO extends TitoloViaggio {
     protected final EntityManager em;
-    private final Class<T> entityClass;
 
-    public TitoloViaggioDAO(EntityManager em, Class<T> entityClass) {
+    public TitoloViaggioDAO(EntityManager em) {
         this.em = em;
-        this.entityClass = entityClass;
     }
 
-    public void save(T titoloViaggio) {
+    public void save(TitoloViaggio titoloViaggio) {
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(titoloViaggio);
@@ -26,14 +24,14 @@ public class TitoloViaggioDAO<T extends TitoloViaggio> {
         System.out.println("Il viaggio" + titoloViaggio.getId() + "è stato salvato correttamente");
     }
 
-    public T findById(String id) {
-        T found = em.find(entityClass, UUID.fromString(id));
+    public TitoloViaggio findById(String id) {
+        TitoloViaggio found = em.find(TitoloViaggio.class, UUID.fromString(id));
         if (found == null) throw new NotFoundException(id);
         return found;
     }
 
     public void deleteById(String id) {
-        T found = findById(id);
+        TitoloViaggio found = findById(id);
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.remove(found);
@@ -41,10 +39,10 @@ public class TitoloViaggioDAO<T extends TitoloViaggio> {
         System.out.println("Il viaggio " + id + " è stato rimosso correttamente");
     }
 
-    public List<T> findAll() {
-        TypedQuery<T> query = em.createQuery(
-                "SELECT t FROM " + entityClass.getSimpleName() + " t",
-                entityClass
+    public List<TitoloViaggio> findAll() {
+        TypedQuery<TitoloViaggio> query = em.createQuery(
+                "SELECT t FROM TitoloViaggio t",
+                TitoloViaggio.class
         );
         return query.getResultList();
     }
