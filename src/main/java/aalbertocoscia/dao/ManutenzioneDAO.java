@@ -58,7 +58,7 @@ public class ManutenzioneDAO {
 
     public Manutenzione findManutenzioneByMezzo(String idMezzo) {
         TypedQuery<Manutenzione> query = em.createQuery(
-                "SELECT m FROM Manutenzione m WHERE m.mezzo.idMezzo = :idMezzo",
+                "SELECT m FROM Manutenzione m WHERE m.mezzo.idMezzo = :idMezzo AND m.dataFine IS NULL",
                 Manutenzione.class
         );
         query.setParameter("idMezzo", UUID.fromString(idMezzo));

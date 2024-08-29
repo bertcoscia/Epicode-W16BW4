@@ -39,6 +39,12 @@ public class Manutenzione {
         return this;
     }
 
+    public Manutenzione terminaManutenzione(String dataFine) {
+        this.getMezzo().setStatoMezzo(StatoMezzo.IN_SERVIZIO);
+        this.dataFine = LocalDate.parse(dataFine);
+        return this;
+    }
+
     public UUID getIdManutenzione() {
         return idManutenzione;
     }

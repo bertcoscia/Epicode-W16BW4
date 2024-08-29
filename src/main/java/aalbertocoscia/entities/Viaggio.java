@@ -23,7 +23,7 @@ public class Viaggio {
     @JoinColumn(name = "id_tratta", nullable = false)
     private Tratta tratta;
 
-    @OneToMany(mappedBy = "viaggio")
+    @OneToMany(mappedBy = "viaggio", cascade = CascadeType.ALL)
     private List<Biglietto> listBiglietti;
 
     public Viaggio() {

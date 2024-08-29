@@ -63,7 +63,7 @@ public class MezzoDAO {
 
     public List<Mezzo> getAllMezziInManutenzione() {
         TypedQuery<Mezzo> query = em.createQuery(
-                "SELECT me FROM Mezzo me JOIN Manutenzione ma ON me.idMezzo = ma.mezzo.idMezzo WHERE me.statoMezzo = StatoMezzo.IN_MANUTENZIONE",
+                "SELECT me FROM Mezzo me JOIN Manutenzione ma ON me.idMezzo = ma.mezzo.idMezzo WHERE me.statoMezzo = StatoMezzo.IN_MANUTENZIONE AND ma.dataFine IS NULL",
                 Mezzo.class
         );
         return query.getResultList();

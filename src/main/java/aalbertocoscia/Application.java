@@ -3,6 +3,7 @@ package aalbertocoscia;
 import aalbertocoscia.dao.*;
 import aalbertocoscia.entities.*;
 import aalbertocoscia.enums.DurataAbbonamento;
+import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
@@ -229,9 +230,12 @@ public class Application {
                                     System.out.println("1. Vedi tutti i mezzi in servizio");
                                     System.out.println("2. Vedi tutti i mezzi in manutenzione");
                                     System.out.println("3. Aggiungi un nuovo mezzo");
-                                    System.out.println("4. Dai fuoco a un mezzo");
-                                    System.out.println("5. Inizia una nuova manutenzione");
-                                    System.out.println("6. Termina una manutenzione");
+                                    System.out.println("4. Modifica un mezzo esistente");
+                                    System.out.println("5. Dai fuoco a un mezzo");
+                                    System.out.println("6. Vedi tutte le manutenzioni");
+                                    System.out.println("7. Inizia una nuova manutenzione");
+                                    System.out.println("8. Modifica una manutenzione esistente");
+                                    System.out.println("9. Termina una manutenzione");
                                     System.out.println("0. Torna al menu precedente");
                                     String adminInput1 = scanner.nextLine();
                                     switch (adminInput1) {
@@ -273,7 +277,27 @@ public class Application {
                                                 }
                                             } while (!tipoMezzo.equals("1") && !tipoMezzo.equals("2") && !tipoMezzo.equals("0"));
                                             break;
-                                        case "4": // Dai fuoco a un mezzo
+                                        case "4": // Modifica un mezzo esistente
+                                            List<Mezzo> listMezziMod = med.getAllMezzi();
+                                            for (int i = 0; i < listMezziMod.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listMezziMod.get(i));
+                                            }
+                                            System.out.println("Scegli il mezzo da modificare");
+                                            int indexMezzoDaModificare = Integer.parseInt(scanner.nextLine());
+                                            if (indexMezzoDaModificare <= listMezziMod.size()) {
+                                                Mezzo mezzoDaModificare = listMezziMod.get(indexMezzoDaModificare - 1);
+                                                System.out.println(mezzoDaModificare);
+                                                try {
+                                                    System.out.println("Inserisci la capienza");
+                                                    int capienzaMod = Integer.parseInt(scanner.nextLine());
+                                                    mezzoDaModificare.setCapienza(capienzaMod);
+                                                    med.save(mezzoDaModificare);
+                                                } catch (NotFoundException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                            }
+                                            break;
+                                        case "5": // Dai fuoco a un mezzo
                                             List<Mezzo> listMezzi = med.getAllMezzi();
                                             for (int i = 0; i < listMezzi.size(); i++) {
                                                 System.out.println((i + 1) + ". " + listMezzi.get(i));
@@ -286,8 +310,14 @@ public class Application {
                                                 System.out.println("Scegli un'opzione valida");
                                             }
                                             break;
-                                        case "5": // Inizia una nuova manutenzione
-                                            List<Mezzo> listMezziPerManutenzione = med.getAllMezzi();
+                                        case "6":
+                                            List<Manutenzione> listManutenzioni = mad.findAllManutenzioni();
+                                            for (int i = 0; i < listManutenzioni.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listManutenzioni.get(i));
+                                            }
+                                            break;
+                                        case "7": // Inizia una nuova manutenzione
+                                            List<Mezzo> listMezziPerManutenzione = med.getAllMezziInServizio();
                                             for (int i = 0; i < listMezziPerManutenzione.size(); i++) {
                                                 System.out.println((i + 1) + ". " + listMezziPerManutenzione.get(i));
                                             }
@@ -302,7 +332,62 @@ public class Application {
                                                 System.out.println("Scegli un'opzione valida");
                                             }
                                             break;
-                                        case "6": // Termina una manutenzione
+                                        case "8": // Modifica una manutenzione esistente 8a9cb640-55bf-416a-88f8-5c0d65b3e88b
+                                            List<Manutenzione> listManutenzioniMod = mad.findAllManutenzioni();
+                                            System.out.println("Scegli la manutenzione da modificare");
+                                            for (int i = 0; i < listManutenzioniMod.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listManutenzioniMod.get(i));
+                                            }
+                                            int indexManutenzioneMod = Integer.parseInt(scanner.nextLine());
+                                            if (indexManutenzioneMod <= listManutenzioniMod.size()) {
+                                                Manutenzione manutenzioneDaModificare = listManutenzioniMod.get(indexManutenzioneMod - 1);
+                                                System.out.println(manutenzioneDaModificare);
+                                                System.out.println("Inserisci la data di inizio in questo formato YYYY-MM-DD");
+                                                String dataInizioMod = scanner.nextLine();
+                                                System.out.println("Inserisci il motivo della manutenzione");
+                                                String motivoMod = scanner.nextLine();
+                                                if (manutenzioneDaModificare.getDataFine() != null) {
+                                                    System.out.println("Inserisci la data di fine in questo formato YYYY-MM-DD");
+                                                    String dataFineMod = scanner.nextLine();
+                                                    try {
+                                                        manutenzioneDaModificare.setDataInizio(LocalDate.parse(dataInizioMod));
+                                                        manutenzioneDaModificare.setDataFine(LocalDate.parse(dataFineMod));
+                                                        manutenzioneDaModificare.setMotivo(motivoMod);
+                                                        mad.save(manutenzioneDaModificare);
+                                                    } catch (NotFoundException e) {
+                                                        System.err.println(e.getMessage());
+                                                    }
+                                                } else { // Se dataFine == null
+                                                    try {
+                                                        manutenzioneDaModificare.setDataInizio(LocalDate.parse(dataInizioMod));
+                                                        manutenzioneDaModificare.setMotivo(motivoMod);
+                                                        System.out.println("Vuoi aggiungere una data di fine manutenzione? Y/N");
+                                                        String yesOrNot = scanner.nextLine();
+                                                        if (yesOrNot.equalsIgnoreCase("y")) {
+                                                            System.out.println("Inserisci la data di fine manutenzione in questo formato YYYY-DD-MM");
+                                                            String dataFine = scanner.nextLine();
+                                                            manutenzioneDaModificare.terminaManutenzione(dataFine);
+                                                            try {
+                                                                mad.save(manutenzioneDaModificare);
+                                                            } catch (NotFoundException e) {
+                                                                System.err.println(e.getMessage());
+                                                            }
+                                                        } else if (yesOrNot.equalsIgnoreCase("n")) {
+                                                            try {
+                                                                mad.save(manutenzioneDaModificare);
+                                                            } catch (NotFoundException e) {
+                                                                System.err.println(e.getMessage());
+                                                            }
+                                                        } else {
+                                                            System.out.println("Scegli un'opzione valida");
+                                                        }
+                                                    } catch (NotFoundException e) {
+                                                        System.err.println(e.getMessage());
+                                                    }
+                                                }
+                                            }
+                                            break;
+                                        case "9": // Termina una manutenzione
                                             List<Manutenzione> listManutenzioniInCorso = mad.findAllManutenzioniInCorso();
                                             for (int i = 0; i < listManutenzioniInCorso.size(); i++) {
                                                 System.out.println((i + 1) + ". " + listManutenzioniInCorso.get(i));
@@ -338,7 +423,9 @@ public class Application {
                                     System.out.println("Scegli un'opzione");
                                     System.out.println("1. Vedi tutte le tratte");
                                     System.out.println("2. Crea una nuova tratta");
-                                    System.out.println("3. Calcola i tempi di percorrenza media di una tratta");
+                                    System.out.println("3. Modifica una tratta esistente");
+                                    System.out.println("4. Calcola i tempi di percorrenza media di una tratta");
+                                    System.out.println("5. Elimina una tratta");
                                     System.out.println("0. Torna al menu precedente");
                                     String adminInput2 = scanner.nextLine();
                                     switch (adminInput2) {
@@ -365,6 +452,34 @@ public class Application {
                                             }
                                             break;
                                         case "3":
+                                            List<Tratta> listTratteMod = trd.findAllTratte();
+                                            for (int i = 0; i < listTratteMod.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listTratteMod.get(i));
+                                            }
+                                            int trattaMod = Integer.parseInt(scanner.nextLine());
+                                            if (trattaMod <= listTratteMod.size()) {
+                                                try {
+                                                    Tratta trattaDaModificare = listTratteMod.get(trattaMod - 1);
+                                                    System.out.println(trattaDaModificare);
+                                                    System.out.println("Inserisci il numero di linea");
+                                                    String numeroLineaMod = scanner.nextLine();
+                                                    System.out.println("Inserisci l'indirizzo di partenza");
+                                                    String zonaPartenzaMod = scanner.nextLine();
+                                                    System.out.println("Inserisci l'indirizzo del capolinea");
+                                                    String capolineaMod = scanner.nextLine();
+                                                    System.out.println("Inserisci la durata prevista della tratta");
+                                                    int durataPrevistaMod = Integer.parseInt(scanner.nextLine());
+                                                    trattaDaModificare.setNumeroLinea(numeroLineaMod);
+                                                    trattaDaModificare.setZonaPartenza(zonaPartenzaMod);
+                                                    trattaDaModificare.setCapolinea(capolineaMod);
+                                                    trattaDaModificare.setDurataPrevista(durataPrevistaMod);
+                                                    trd.save(trattaDaModificare);
+                                                } catch (NotFoundException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                            }
+                                            break;
+                                        case "4":
                                             System.out.println("Seleziona una tratta");
                                             List<Tratta> listTratteAvg = trd.findAllTratte();
                                             for (int i = 0; i < listTratteAvg.size(); i++) {
@@ -376,6 +491,23 @@ public class Application {
                                                 System.out.println("Durata prevista: " + listTratteAvg.get(trattaAvg - 1).getDurataPrevista() + " minuti, durata media effettiva: " + avg + " minuti");
                                             } else {
                                                 System.out.println("Non sono stati ancora effettuati viaggi per questa tratta");
+                                            }
+                                            break;
+                                        case "5":
+                                            System.out.println("Seleziona una tratta");
+                                            List<Tratta> listaTratteDelete = trd.findAllTratte();
+                                            for (int i = 0; i < listaTratteDelete.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listaTratteDelete.get(i));
+                                            }
+                                            int trattaDaCancellare = Integer.parseInt(scanner.nextLine());
+                                            if (trattaDaCancellare <= listaTratteDelete.size()) {
+                                                try {
+                                                    trd.findTrattaByIdAndDelete(listaTratteDelete.get(trattaDaCancellare - 1).getIdTratta().toString());
+                                                } catch (NotFoundException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                            } else {
+                                                System.out.println("Scegli un'opzione valida");
                                             }
                                             break;
                                     }
