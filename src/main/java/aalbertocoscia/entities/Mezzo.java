@@ -3,6 +3,7 @@ package aalbertocoscia.entities;
 import aalbertocoscia.enums.StatoMezzo;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,6 +32,11 @@ public class Mezzo {
     }
 
     public Mezzo() {
+    }
+
+    public Manutenzione iniziaManutenzione(String motivo) {
+        this.setStatoMezzo(StatoMezzo.IN_MANUTENZIONE);
+        return new Manutenzione(LocalDate.now().toString(), motivo, this);
     }
 
     public UUID getIdMezzo() {

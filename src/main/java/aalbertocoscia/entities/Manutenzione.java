@@ -1,5 +1,6 @@
 package aalbertocoscia.entities;
 
+import aalbertocoscia.enums.StatoMezzo;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -25,11 +26,17 @@ public class Manutenzione {
     public Manutenzione() {
     }
 
-    public Manutenzione(String dataInizio, String dataFine, String motivo, Mezzo mezzo) {
+    public Manutenzione(String dataInizio, String motivo, Mezzo mezzo) {
         this.dataInizio = LocalDate.parse(dataInizio);
-        this.dataFine = LocalDate.parse(dataFine);
+        this.dataFine = null;
         this.motivo = motivo;
         this.mezzo = mezzo;
+    }
+
+    public Manutenzione terminaManutenzione() {
+        this.getMezzo().setStatoMezzo(StatoMezzo.IN_SERVIZIO);
+        this.dataFine = LocalDate.now();
+        return this;
     }
 
     public UUID getIdManutenzione() {
@@ -70,6 +77,6 @@ public class Manutenzione {
 
     @Override
     public String toString() {
-        return "Manutenzione n." + idManutenzione + ". Data di inizio: " + dataInizio + ", data di fine: " + dataFine + ". Motivo: " + motivo;
+        return "Manutenzione n." + idManutenzione + ", mezzo n. " + mezzo.getIdMezzo() + ". Data di inizio: " + dataInizio + ", data di fine: " + dataFine + ". Motivo: " + motivo;
     }
 }

@@ -42,7 +42,15 @@ public class ManutenzioneDAO {
 
     public List<Manutenzione> findAllManutenzioni() {
         TypedQuery<Manutenzione> query = em.createQuery(
-                "SELECT t FROM Manutenzioni t",
+                "SELECT m FROM Manutenzione m",
+                Manutenzione.class
+        );
+        return query.getResultList();
+    }
+
+    public List<Manutenzione> findAllManutenzioniInCorso() {
+        TypedQuery<Manutenzione> query = em.createQuery(
+                "SELECT m FROM Manutenzione m WHERE m.dataFine IS NULL",
                 Manutenzione.class
         );
         return query.getResultList();
@@ -56,4 +64,5 @@ public class ManutenzioneDAO {
         query.setParameter("idMezzo", UUID.fromString(idMezzo));
         return query.getSingleResult();
     }
+
 }

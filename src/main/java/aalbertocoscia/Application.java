@@ -232,7 +232,8 @@ public class Application {
                                     System.out.println("2. Vedi tutti i mezzi in manutenzione");
                                     System.out.println("3. Aggiungi un nuovo mezzo");
                                     System.out.println("4. Dai fuoco a un mezzo");
-                                    System.out.println("4. Inizia una nuova manutenzione");
+                                    System.out.println("5. Inizia una nuova manutenzione");
+                                    System.out.println("6. Termina una manutenzione");
                                     System.out.println("0. Torna al menu precedente");
                                     String adminInput1 = scanner.nextLine();
                                     switch (adminInput1) {
@@ -285,6 +286,41 @@ public class Application {
                                                 med.findMezzoByIdAndDelete(listMezzi.get(indexMezzoBruciare - 1).getIdMezzo().toString());
                                             } else {
                                                 System.out.println("Scegli un'opzione valida");
+                                            }
+                                            break;
+                                        case "5": // Inizia una nuova manutenzione
+                                            List<Mezzo> listMezziPerManutenzione = med.getAllMezzi();
+                                            for (int i = 0; i < listMezziPerManutenzione.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listMezziPerManutenzione.get(i));
+                                            }
+                                            System.out.println("Scegli il mezzo su cui intervenire");
+                                            int indexMezzoDaAggiustare = Integer.parseInt(scanner.nextLine());
+                                            if (indexMezzoDaAggiustare <= listMezziPerManutenzione.size()) {
+                                                System.out.println("Scrivi motivo della manutenzione");
+                                                String motivoManutenzione = scanner.nextLine();
+                                                Manutenzione manutenzione = listMezziPerManutenzione.get(indexMezzoDaAggiustare - 1).iniziaManutenzione(motivoManutenzione);
+                                                mad.save(manutenzione);
+                                            } else {
+                                                System.out.println("Scegli un'opzione valida");
+                                            }
+                                            break;
+                                        case "6": // Termina una manutenzione
+                                            List<Manutenzione> listManutenzioniInCorso = mad.findAllManutenzioniInCorso();
+                                            for (int i = 0; i < listManutenzioniInCorso.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listManutenzioniInCorso.get(i));
+                                            }
+                                            if (!listManutenzioniInCorso.isEmpty()) {
+                                                System.out.println("Scegli la manutenzione da terminare");
+                                                int indexManutenzioneDaTerminare = Integer.parseInt(scanner.nextLine());
+                                                if (indexManutenzioneDaTerminare <= listManutenzioniInCorso.size()) {
+                                                    Manutenzione man1 = listManutenzioniInCorso.get(indexManutenzioneDaTerminare - 1);
+                                                    man1.terminaManutenzione();
+                                                    mad.save(man1);
+                                                } else {
+                                                    System.out.println("Scegli un'opzione valida");
+                                                }
+                                            } else {
+                                                System.out.println("Non ci sono interventi di manutenzione in corso");
                                             }
                                             break;
                                         default:
