@@ -184,6 +184,9 @@ public class Application {
                                     Tessera newTessera = user.creaTessera();
                                     ud.save(user);
                                     ted.save(newTessera);
+                                    User userDB = ud.findUserById(user.getIdUser().toString());
+                                    userDB.setTessera(ted.findTesseraById(newTessera.getIdTessera().toString()));
+                                    ud.save(userDB);
 
                                     System.out.println("Utente creato con successo!");
                                 } catch (DateTimeParseException e) {
