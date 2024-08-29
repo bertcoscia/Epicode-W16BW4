@@ -90,5 +90,7 @@ public class ViaggioDAO {
         query.setParameter("idTratta", UUID.fromString(idTratta));
         return query.getResultList();
     }
+
+    //TODO METODO CONTA QUANTE VOLTE UN MEZZO HA PERCORSO UNA TRATTA
 }
 

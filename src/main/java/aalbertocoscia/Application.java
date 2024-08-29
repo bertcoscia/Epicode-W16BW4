@@ -599,9 +599,25 @@ public class Application {
                                                     System.err.println(e.getMessage());
                                                 }
                                                 break;
+                                            case "4": // Conta quante volte un mezzo ha percorso una tratta
+                                                List<Tratta> listTratteCase4 = trd.findAllTratte();
+                                                System.out.println("Scegli la tratta");
+                                                for (int i = 0; i < listTratteCase4.size(); i++) {
+                                                    System.out.println((i + 1) + ". " + listTratteCase4.get(i));
+                                                }
+                                                try {
+                                                    int indexCase4 = Integer.parseInt(scanner.nextLine());
+                                                    if (indexCase4 <= listTratteCase4.size()) {
+                                                        Tratta tratta = listTratteCase4.get(indexCase4 - 1);
+                                                        System.out.println(vid.countViaggiPerMezzoByTratta(tratta.getIdTratta().toString()));
+                                                    } else {
+                                                        System.err.println("Scegli un'opzione valida");
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                                break;
                                         }
-
-
                                         break;
                                     case "4": // Gestione titoli di viaggio
 
