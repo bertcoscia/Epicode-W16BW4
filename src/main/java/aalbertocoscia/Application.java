@@ -48,7 +48,7 @@ public class Application {
                     String action2;
                     do {
                         // Sottomenu per utente normale
-                        System.out.println("Scegli cosa vuoi fare");
+                        System.out.println("Scegli un'opzione");
                         System.out.println("1. Login");
                         System.out.println("2. Crea un nuovo utente");
                         System.out.println("0. Torna al menu precedente");
@@ -76,7 +76,7 @@ public class Application {
                                         // Menu per utente loggato
                                         String userAction;
                                         do {
-                                            System.out.println("Scegli un'azione");
+                                            System.out.println("Scegli un'opzione");
                                             System.out.println("1. Compra un biglietto");
                                             System.out.println("2. Compra un abbonamento");
                                             System.out.println("0. Torna indietro");
@@ -218,7 +218,7 @@ public class Application {
                         System.out.println("Accesso amministratore consentito.");
                         String adminAction;
                         do {
-                            System.out.println("Scegli cosa fare");
+                            System.out.println("Scegli un'opzione");
                             System.out.println("1. Gestione parco mezzi");
                             System.out.println("2. Gestione tratte");
                             System.out.println("3. Gestione viaggi");
@@ -226,8 +226,8 @@ public class Application {
                             System.out.println("0. Esci");
                             adminAction = scanner.nextLine();
                             switch (adminAction) {
-                                case "1":
-                                    System.out.println("Scegli cosa fare");
+                                case "1": // Gestione parco mezzi
+                                    System.out.println("Scegli un'opzione");
                                     System.out.println("1. Vedi tutti i mezzi in servizio");
                                     System.out.println("2. Vedi tutti i mezzi in manutenzione");
                                     System.out.println("3. Aggiungi un nuovo mezzo");
@@ -334,6 +334,37 @@ public class Application {
                                             } else {
                                                 break;
                                             }
+                                    }
+                                    break;
+                                case "2": // Gestione tratte
+                                    System.out.println("Scegli un'opzione");
+                                    System.out.println("1. Vedi tutte le tratte");
+                                    System.out.println("2. Crea una nuova tratta");
+                                    System.out.println("0. Torna al menu precedente");
+                                    String adminInput2 = scanner.nextLine();
+                                    switch (adminInput2) {
+                                        case "1":
+                                            List<Tratta> listTratte = trd.findAllTratte();
+                                            for (int i = 0; i < listTratte.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listTratte.get(i));
+                                            }
+                                            break;
+                                        case "2":
+                                            System.out.println("Inserisci il numero di linea");
+                                            String numeroLinea = scanner.nextLine();
+                                            System.out.println("Inserisci l'indirizzo di partenza");
+                                            String zonaPartenza = scanner.nextLine();
+                                            System.out.println("Inserisci l'indirizzo del capolinea");
+                                            String capolinea = scanner.nextLine();
+                                            System.out.println("Inserisci la durata prevista della tratta");
+                                            int durataPrevista = Integer.parseInt(scanner.nextLine());
+                                            try {
+                                                Tratta tratta = new Tratta(numeroLinea, zonaPartenza, capolinea, durataPrevista);
+                                                trd.save(tratta);
+                                            } catch (IllegalArgumentException e) {
+                                                System.err.println(e.getMessage());
+                                            }
+                                            break;
                                     }
                             }
                         } while (!adminAction.equals("0"));
