@@ -68,4 +68,12 @@ public class MezzoDAO {
         );
         return query.getResultList();
     }
+
+    public List<Mezzo> getAllMezzi() {
+        TypedQuery<Mezzo> query = em.createQuery(
+                "SELECT m FROM Mezzo m",
+                Mezzo.class
+        );
+        return query.getResultList();
+    }
 }

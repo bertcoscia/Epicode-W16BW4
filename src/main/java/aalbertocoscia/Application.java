@@ -231,24 +231,25 @@ public class Application {
                                     System.out.println("1. Vedi tutti i mezzi in servizio");
                                     System.out.println("2. Vedi tutti i mezzi in manutenzione");
                                     System.out.println("3. Aggiungi un nuovo mezzo");
+                                    System.out.println("4. Dai fuoco a un mezzo");
                                     System.out.println("4. Inizia una nuova manutenzione");
                                     System.out.println("0. Torna al menu precedente");
                                     String adminInput1 = scanner.nextLine();
                                     switch (adminInput1) {
-                                        case "1":
+                                        case "1": // Vedi tutti i mezzi in servizio
                                             List<Mezzo> listaMezziServizio = med.getAllMezziInServizio();
                                             for (int i = 0; i < listaMezziServizio.size(); i++) {
                                                 System.out.println((i + 1) + ". " + listaMezziServizio.get(i));
                                             }
                                             break;
-                                        case "2":
+                                        case "2": // Vedi tutti i mezzi in manutenzione
                                             List<Mezzo> listaMezziManutenzione = med.getAllMezziInManutenzione();
                                             for (int i = 0; i < listaMezziManutenzione.size(); i++) {
                                                 Manutenzione man = mad.findManutenzioneByMezzo(listaMezziManutenzione.get(i).getIdMezzo().toString());
                                                 System.out.println((i + 1) + ". " + listaMezziManutenzione.get(i) + " || " + man);
                                             }
                                             break;
-                                        case "3":
+                                        case "3": // Aggiungi un nuovo mezzo
                                             System.out.println("Inserisci la capienza del mezzo");
                                             int capienzaMezzo = Integer.parseInt(scanner.nextLine());
                                             String tipoMezzo;
@@ -272,6 +273,19 @@ public class Application {
                                                         break;
                                                 }
                                             } while (!tipoMezzo.equals("1") && !tipoMezzo.equals("2") && !tipoMezzo.equals("0"));
+                                            break;
+                                        case "4": // Dai fuoco a un mezzo
+                                            List<Mezzo> listMezzi = med.getAllMezzi();
+                                            for (int i = 0; i < listMezzi.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listMezzi.get(i));
+                                            }
+                                            System.out.println("Scegli quale mezzo vuoi bruciare");
+                                            int indexMezzoBruciare = Integer.parseInt(scanner.nextLine());
+                                            if (indexMezzoBruciare <= listMezzi.size()) {
+                                                med.findMezzoByIdAndDelete(listMezzi.get(indexMezzoBruciare - 1).getIdMezzo().toString());
+                                            } else {
+                                                System.out.println("Scegli un'opzione valida");
+                                            }
                                             break;
                                         default:
                                             if (!adminInput1.equals("0")) {
