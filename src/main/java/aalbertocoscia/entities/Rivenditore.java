@@ -26,9 +26,6 @@ public class Rivenditore extends Venditore {
 
     @Override
     public String toString() {
-        return "Rivenditore{" +
-                "dettagli=" + super.toString() +
-                "nominativo='" + nominativo + '\'' +
-                '}';
+        return "Rivenditore " + nominativo + super.toString() + ", id: " + this.getIdVenditore();
     }
 }

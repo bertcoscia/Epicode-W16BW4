@@ -47,4 +47,13 @@ public class ManutenzioneDAO {
         );
         return query.getResultList();
     }
+
+    public Manutenzione findManutenzioneByMezzo(String idMezzo) {
+        TypedQuery<Manutenzione> query = em.createQuery(
+                "SELECT m FROM Manutenzione m WHERE m.mezzo.idMezzo = :idMezzo",
+                Manutenzione.class
+        );
+        query.setParameter("idMezzo", UUID.fromString(idMezzo));
+        return query.getSingleResult();
+    }
 }

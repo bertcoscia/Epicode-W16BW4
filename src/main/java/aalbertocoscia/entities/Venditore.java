@@ -50,9 +50,6 @@ public class Venditore {
 
     @Override
     public String toString() {
-        return "Venditore{" +
-                "idVenditore=" + idVenditore +
-                ", indirizzo='" + indirizzo + '\'' +
-                '}';
+        return ", indirizzo: " + indirizzo;
     }
 }

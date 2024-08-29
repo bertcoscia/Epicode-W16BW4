@@ -213,6 +213,41 @@ public class Application {
 
                     if (adminPassword.equals("admin123")) {
                         System.out.println("Accesso amministratore consentito.");
+                        String adminAction;
+                        do {
+                            System.out.println("Scegli cosa fare");
+                            System.out.println("1. Gestione parco mezzi");
+                            System.out.println("2. Gestione tratte");
+                            System.out.println("3. Gestione viaggi");
+                            System.out.println("4. Gestione titoli di viaggio");
+                            System.out.println("0. Esci");
+                            adminAction = scanner.nextLine();
+                            switch (adminAction) {
+                                case "1":
+                                    System.out.println("Scegli cosa fare");
+                                    System.out.println("1. Vedi tutti i mezzi in servizio");
+                                    System.out.println("2. Vedi tutti i mezzi in manutenzione");
+                                    System.out.println("3. Aggiungi un nuovo mezzo");
+                                    System.out.println("4. Inizia una nuova manutenzione");
+                                    System.out.println("0. Torna al menu precedente");
+                                    String adminInput1 = scanner.nextLine();
+                                    switch (adminInput1) {
+                                        case "1":
+                                            List<Mezzo> listaMezziServizio = med.getAllMezziInServizio();
+                                            for (int i = 0; i < listaMezziServizio.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listaMezziServizio.get(i));
+                                            }
+                                            break;
+                                        case "2":
+                                            List<Mezzo> listaMezziManutenzione = med.getAllMezziInManutenzione();
+                                            for (int i = 0; i < listaMezziManutenzione.size(); i++) {
+                                                Manutenzione man = mad.findManutenzioneByMezzo(listaMezziManutenzione.get(i).getIdMezzo().toString());
+                                                System.out.println((i + 1) + ". " + listaMezziManutenzione.get(i) + " || " + man);
+                                            }
+                                            break;
+                                    }
+                            }
+                        } while (!adminAction.equals("0"));
 
 
                     } else {

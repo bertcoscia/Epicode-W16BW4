@@ -31,9 +31,6 @@ public class DistributoreAutomatico extends Venditore {
 
     @Override
     public String toString() {
-        return "DistributoreAutomatico{" +
-                "dettagli=" + super.toString() +
-                "stato=" + stato +
-                '}';
+        return "Distributore Automatico" + super.toString() + ", stato: " + stato + ", id: " + this.getIdVenditore();
     }
 }

@@ -48,16 +48,16 @@ public class Manutenzione {
         return dataFine;
     }
 
+    public void setDataFine(LocalDate dataFine) {
+        this.dataFine = dataFine;
+    }
+
     public String getMotivo() {
         return motivo;
     }
 
     public void setMotivo(String motivo) {
         this.motivo = motivo;
-    }
-
-    public void setDataFine(LocalDate dataFine) {
-        this.dataFine = dataFine;
     }
 
     public Mezzo getMezzo() {
@@ -70,10 +70,6 @@ public class Manutenzione {
 
     @Override
     public String toString() {
-        return "Manutenzione{" +
-                "idManutenzione=" + idManutenzione +
-                ", dataInizio=" + dataInizio +
-                ", dataFine=" + dataFine +
-                '}';
+        return "Manutenzione n." + idManutenzione + ". Data di inizio: " + dataInizio + ", data di fine: " + dataFine + ". Motivo: " + motivo;
     }
 }
