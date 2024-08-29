@@ -212,8 +212,6 @@ public class Application {
                 case "2":
                     System.out.println("Inserisci password per amministratore");
                     String adminPassword = scanner.nextLine();
-
-
                     if (adminPassword.equals("admin123")) {
                         System.out.println("Accesso amministratore consentito.");
                         String adminAction;
@@ -374,8 +372,40 @@ public class Application {
                                             }
                                             int trattaAvg = Integer.parseInt(scanner.nextLine());
                                             Double avg = vid.avgPercorrenzaEffettivaByTratta(listTratteAvg.get(trattaAvg - 1).getIdTratta().toString());
-                                            System.out.println("Durata prevista: " + listTratteAvg.get(trattaAvg - 1).getDurataPrevista() + ", durata media effettiva: " + avg);
+                                            if (!avg.equals(0.0)) {
+                                                System.out.println("Durata prevista: " + listTratteAvg.get(trattaAvg - 1).getDurataPrevista() + " minuti, durata media effettiva: " + avg + " minuti");
+                                            } else {
+                                                System.out.println("Non sono stati ancora effettuati viaggi per questa tratta");
+                                            }
                                             break;
+                                    }
+                                    break;
+                                case "3": // Gestione viaggi
+                                    System.out.println("Scegli un'opzione");
+                                    System.out.println("1. Vedi tutti i viaggi");
+                                    System.out.println("1. Vedi tutti i viaggi per tratta");
+                                    System.out.println("2. Conta quante volte un mezzo ha percorso una tratta");
+                                    System.out.println("0. Torna al menu precedente");
+                                    String adminInput3 = scanner.nextLine();
+                                    switch (adminInput3) {
+                                        case "1":
+                                            List<Viaggio> listViaggi = vid.findAllViaggi();
+                                            for (int i = 0; i < listViaggi.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listViaggi.get(i));
+                                            }
+                                            break;
+                                    }
+
+
+                                    break;
+                                case "4": // Gestione titoli di viaggio
+
+                                    break;
+                                default:
+                                    if (!adminAction.equals("0")) {
+                                        System.out.println("Scegli un'opzione valida");
+                                    } else {
+                                        break;
                                     }
                             }
                         } while (!adminAction.equals("0"));
