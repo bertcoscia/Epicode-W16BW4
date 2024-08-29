@@ -18,7 +18,7 @@ public class Venditore {
     private UUID idVenditore;
     private String indirizzo;
 
-    @OneToMany(mappedBy = "venditore")
+    @OneToMany(mappedBy = "venditore", orphanRemoval = true)
     private List<Biglietto> listBiglietti;
 
     public Venditore() {

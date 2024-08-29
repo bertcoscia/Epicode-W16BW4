@@ -23,7 +23,7 @@ public class Mezzo {
     @Column(name = "stato_mezzo")
     private StatoMezzo statoMezzo;
 
-    @OneToMany(mappedBy = "mezzo")
+    @OneToMany(mappedBy = "mezzo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Viaggio> listViaggi;
 
     public Mezzo(int capienza) {

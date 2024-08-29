@@ -20,7 +20,7 @@ public class Tratta {
     @Column(name = "durata_prevista")
     private int durataPrevista;
 
-    @OneToMany(mappedBy = "tratta", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tratta", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Viaggio> listViaggi;
 
     public Tratta() {
