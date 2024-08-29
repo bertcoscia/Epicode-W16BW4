@@ -340,6 +340,7 @@ public class Application {
                                     System.out.println("Scegli un'opzione");
                                     System.out.println("1. Vedi tutte le tratte");
                                     System.out.println("2. Crea una nuova tratta");
+                                    System.out.println("3. Calcola i tempi di percorrenza media di una tratta");
                                     System.out.println("0. Torna al menu precedente");
                                     String adminInput2 = scanner.nextLine();
                                     switch (adminInput2) {
@@ -364,6 +365,16 @@ public class Application {
                                             } catch (IllegalArgumentException e) {
                                                 System.err.println(e.getMessage());
                                             }
+                                            break;
+                                        case "3":
+                                            System.out.println("Seleziona una tratta");
+                                            List<Tratta> listTratteAvg = trd.findAllTratte();
+                                            for (int i = 0; i < listTratteAvg.size(); i++) {
+                                                System.out.println((i + 1) + ". " + listTratteAvg.get(i));
+                                            }
+                                            int trattaAvg = Integer.parseInt(scanner.nextLine());
+                                            Double avg = vid.avgPercorrenzaEffettivaByTratta(listTratteAvg.get(trattaAvg - 1).getIdTratta().toString());
+                                            System.out.println("Durata prevista: " + listTratteAvg.get(trattaAvg - 1).getDurataPrevista() + ", durata media effettiva: " + avg);
                                             break;
                                     }
                             }

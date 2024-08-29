@@ -72,5 +72,14 @@ public class ViaggioDAO {
         Double tempoMedio = query.getSingleResult();
         return (tempoMedio != null) ? tempoMedio : 0.0;
     }
+
+    public double avgPercorrenzaEffettivaByTratta(String idTratta) {
+        Query query = em.createQuery(
+                "SELECT AVG(v.durataEffettiva) FROM Viaggio v WHERE v.tratta.idTratta = :idTratta"
+        );
+        query.setParameter("idTratta", UUID.fromString(idTratta));
+        Double avg = (Double) query.getSingleResult();
+        return (avg != null) ? avg : 0.0;
+    }
 }
 
