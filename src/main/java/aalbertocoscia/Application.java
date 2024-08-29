@@ -248,6 +248,42 @@ public class Application {
                                                 System.out.println((i + 1) + ". " + listaMezziManutenzione.get(i) + " || " + man);
                                             }
                                             break;
+                                        case "3":
+                                            System.out.println("Inserisci la capienza del mezzo");
+                                            int capienzaMezzo = Integer.parseInt(scanner.nextLine());
+                                            String tipoMezzo;
+                                            do {
+                                                System.out.println("Seleziona un'opzione");
+                                                System.out.println("1. Autobus");
+                                                System.out.println("2. Tram");
+                                                System.out.println("0. Torna indietro");
+                                                tipoMezzo = scanner.nextLine();
+                                                switch (tipoMezzo) {
+                                                    case "1":
+                                                        med.save(new Autobus(capienzaMezzo));
+                                                        break;
+                                                    case "2":
+                                                        med.save(new Tram(capienzaMezzo));
+                                                        break;
+                                                    default:
+                                                        if (!tipoMezzo.equals("0")) {
+                                                            System.out.println("Scegli un'opzione valida");
+                                                        }
+                                                        break;
+                                                }
+                                            } while (!tipoMezzo.equals("1") && !tipoMezzo.equals("2") && !tipoMezzo.equals("0"));
+                                            break;
+                                        default:
+                                            if (!adminInput1.equals("0")) {
+                                                System.out.println("Scegli un'opzione valida");
+                                                System.out.println("1. Vedi tutti i mezzi in servizio");
+                                                System.out.println("2. Vedi tutti i mezzi in manutenzione");
+                                                System.out.println("3. Aggiungi un nuovo mezzo");
+                                                System.out.println("4. Inizia una nuova manutenzione");
+                                                System.out.println("0. Torna al menu precedente");
+                                            } else {
+                                                break;
+                                            }
                                     }
                             }
                         } while (!adminAction.equals("0"));

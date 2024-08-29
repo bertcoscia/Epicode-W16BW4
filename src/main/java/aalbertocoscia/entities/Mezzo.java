@@ -25,9 +25,9 @@ public class Mezzo {
     @OneToMany(mappedBy = "mezzo")
     private List<Viaggio> listViaggi;
 
-    public Mezzo(int capienza, StatoMezzo statoMezzo) {
+    public Mezzo(int capienza) {
         this.capienza = capienza;
-        this.statoMezzo = statoMezzo;
+        this.statoMezzo = StatoMezzo.IN_SERVIZIO;
     }
 
     public Mezzo() {
