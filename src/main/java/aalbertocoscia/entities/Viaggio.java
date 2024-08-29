@@ -65,11 +65,6 @@ public class Viaggio {
 
     @Override
     public String toString() {
-        return "Viaggio{" +
-                "idViaggio=" + idViaggio +
-                ", durataEffettiva=" + durataEffettiva +
-                ", mezzo=" + mezzo +
-                ", tratta=" + tratta +
-                '}';
+        return "Viaggio n. " + idViaggio + ", durata effettiva: " + durataEffettiva + " minuti, tratta: " + tratta.getNumeroLinea() + ", mezzo n. " + mezzo.getIdMezzo();
     }
 }

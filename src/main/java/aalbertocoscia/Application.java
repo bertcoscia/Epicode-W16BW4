@@ -573,6 +573,32 @@ public class Application {
                                                 }
                                                 break;
                                             case "3": // Vedi tutti i viaggi per tratta
+                                                System.out.println("Scegli la tratta che vuoi controllare");
+                                                List<Tratta> listTratta1 = trd.findAllTratte();
+                                                for (int i = 0; i < listTratta1.size(); i++) {
+                                                    System.out.println((i + 1) + ". " + listTratta1.get(i));
+                                                }
+                                                try {
+                                                    int indexListTratta1 = Integer.parseInt(scanner.nextLine());
+                                                    if (indexListTratta1 <= listTratta1.size()) {
+                                                        Tratta tratta1 = listTratta1.get(indexListTratta1 - 1);
+                                                        try {
+                                                            List<Viaggio> listViaggiByTratta = vid.findViaggiByTratta(tratta1.getIdTratta().toString());
+                                                            if (!listViaggiByTratta.isEmpty()) {
+                                                                for (int i = 0; i < listViaggiByTratta.size(); i++) {
+                                                                    System.out.println((i + 1) + ". " + listViaggiByTratta.get(i));
+                                                                }
+                                                            } else {
+                                                                System.out.println("Non sono stati effettuati viaggi per questa tratta");
+                                                            }
+                                                        } catch (NotFoundException e) {
+                                                            System.err.println(e.getMessage());
+                                                        }
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                                break;
                                         }
 
 

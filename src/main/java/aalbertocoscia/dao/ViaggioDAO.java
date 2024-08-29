@@ -81,5 +81,14 @@ public class ViaggioDAO {
         Double avg = (Double) query.getSingleResult();
         return (avg != null) ? avg : 0.0;
     }
+
+    public List<Viaggio> findViaggiByTratta(String idTratta) {
+        TypedQuery<Viaggio> query = em.createQuery(
+                "SELECT v FROM Viaggio v WHERE v.tratta.idTratta = :idTratta",
+                Viaggio.class
+        );
+        query.setParameter("idTratta", UUID.fromString(idTratta));
+        return query.getResultList();
+    }
 }
 
