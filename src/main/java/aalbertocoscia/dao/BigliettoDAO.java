@@ -123,12 +123,20 @@ public class BigliettoDAO {
         return count.intValue();
     }
 
-    public Long countBigliettiByTessera(String idTessera) {
+    public Long countBigliettiDisponibiliByTessera(String idTessera) {
         Query query = em.createQuery(
-                "SELECT COUNT(b) FROM Biglietto b WHERE b.tessera.idTessera = :idTessera"
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.tessera.idTessera = :idTessera AND b.timbrato = FALSE"
         );
         query.setParameter("idTessera", UUID.fromString(idTessera));
         return (Long) query.getSingleResult();
     }
 
+    public List<Biglietto> findAllBigliettiDisponibiliByTessera(String idTessera) {
+        TypedQuery<Biglietto> query = em.createQuery(
+                "SELECT b FROM Biglietto b WHERE b.tessera.idTessera = :idTessera AND b.timbrato = FALSE",
+                Biglietto.class
+        );
+        query.setParameter("idTessera", UUID.fromString(idTessera));
+        return query.getResultList();
+    }
 }

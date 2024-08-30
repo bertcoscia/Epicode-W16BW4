@@ -171,9 +171,38 @@ public class Application {
                                                         }
                                                         break;
                                                     case "4": // Vedi quanti biglietti disponibili sulla tua tessera
-                                                        Long countBigliettiByTessera = bd.countBigliettiByTessera(loggedInUser.getTessera().getIdTessera().toString());
-                                                        System.out.println("Biglietti disponibili: " + countBigliettiByTessera);
+                                                        Long countBigliettiDisponibiliByTessera = bd.countBigliettiDisponibiliByTessera(loggedInUser.getTessera().getIdTessera().toString());
+                                                        System.out.println("Biglietti disponibili: " + countBigliettiDisponibiliByTessera);
                                                         break;
+                                                    case "5": // Timbra biglietto
+                                                        Long countBigliettiDisponibiliByTessera5 = bd.countBigliettiDisponibiliByTessera(loggedInUser.getTessera().getIdTessera().toString());
+                                                        if (countBigliettiDisponibiliByTessera5 == 0) {
+                                                            System.err.println("Non hai biglietti sulla tua tessera");
+                                                            break;
+                                                        } else {
+                                                            System.out.println("Scegli il tuo viaggio");
+                                                            List<Viaggio> listaViaggiTimbra = vid.findAllViaggi();
+                                                            for (int i = 0; i < listaViaggiTimbra.size(); i++) {
+                                                                System.out.println((i + 1) + ". " + listaViaggiTimbra.get(i));
+                                                            }
+                                                            try {
+                                                                int indexListaViaggiTimbra = Integer.parseInt(scanner.nextLine());
+                                                                if (indexListaViaggiTimbra <= listaViaggiTimbra.size()) {
+                                                                    Viaggio viaggoTimbra = listaViaggiTimbra.get(indexListaViaggiTimbra - 1);
+                                                                    List<Biglietto> listaBigliettiTimbra = bd.findAllBigliettiDisponibiliByTessera(loggedInUser.getTessera().getIdTessera().toString());
+                                                                    Biglietto bigliettoDaTimbrare = listaBigliettiTimbra.getFirst();
+                                                                    bigliettoDaTimbrare.timbraBiglietto(viaggoTimbra);
+                                                                    bd.save(bigliettoDaTimbrare);
+                                                                    Long countBigliettiRimanenti = bd.countBigliettiDisponibiliByTessera(loggedInUser.getTessera().getIdTessera().toString());
+                                                                    System.out.println("Biglietti rimanenti: " + countBigliettiRimanenti);
+                                                                } else {
+                                                                    System.err.println("Seleziona un'opzione valida");
+                                                                }
+                                                            } catch (IllegalArgumentException e) {
+                                                                System.err.println(e.getMessage());
+                                                            }
+                                                            break;
+                                                        }
                                                 }
                                             } while (!userAction.equals("0"));
                                         } else {
