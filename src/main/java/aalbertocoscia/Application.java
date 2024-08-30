@@ -683,14 +683,22 @@ public class Application {
                                         break;
                                     case "4": // Gestione titoli di viaggio
                                         System.out.println("Scegli un'opzione");
-                                        System.out.println("1. Conta titoli di viaggio emessi per punto vendita");
-                                        System.out.println("2. Conta titoli di viaggio emessi in un intervallo di date");
-                                        System.out.println("3. Conta biglietti timbrati per tratta");
+                                        System.out.println("1. Conta titoli di viaggio emessi in totale");
+                                        System.out.println("2. Conta titoli di viaggio emessi in totale per uno specifico intervallo di tempo");
+                                        System.out.println("3. Conta titoli di viaggio emessi per punto vendita");
+                                        System.out.println("4. Conta titoli di viaggio emessi per punto vendita in uno specifico intervallo di tempo per punto vendita");
+                                        System.out.println("5. Conta biglietti timbrati per tratta");
                                         System.out.println("0. Torna al menu precedente");
                                         String adminInput4 = scanner.nextLine();
                                         switch (adminInput4) {
-                                            case "1": // Conta titoli di viaggio emessi per punto vendita
-                                                System.err.println("Scegli il venditore");
+                                            case "1": // Conta titoli di viaggio emessi in totale
+                                                Long countTitoliViaggio1 = tvd.countAllTitoliViaggio();
+                                                System.out.println("Biglietti emessi in totale: " + countTitoliViaggio1);
+                                                break;
+                                            case "2": // Conta titoli di viaggio emessi in totale per uno specifico intervallo di tempo
+                                                break;
+                                            case "3": // Conta titoli di viaggio emessi per punto vendita
+                                                System.out.println("Scegli il venditore");
                                                 List<Venditore> listVenditoriCount1 = ved.findAllVenditori();
                                                 for (int i = 0; i < listVenditoriCount1.size(); i++) {
                                                     System.out.println((i + 1) + ". " + listVenditoriCount1.get(i));
@@ -706,14 +714,16 @@ public class Application {
                                                         mapCount1.put("Abbonamenti", countAbbonamentiByVenditore1);
                                                         System.out.println("Venditore n. " + venditore1.getIdVenditore().toString());
                                                         System.out.println(mapCount1.entrySet());
+                                                    } else {
+                                                        System.err.println("Scegli un'opzione valida");
                                                     }
                                                 } catch (IllegalArgumentException e) {
                                                     System.err.println(e.getMessage());
                                                 }
                                                 break;
-                                            case "2": // Conta titoli di viaggio emessi in un intervallo di date
+                                            case "4": // Conta titoli di viaggio emessi per punto vendita in uno specifico intervallo di tempo per punto vendita
                                                 break;
-                                            case "3": // Conta biglietti timbrati per tratta
+                                            case "5": // Conta biglietti timbrati per tratta
                                                 break;
                                             default:
                                                 break;

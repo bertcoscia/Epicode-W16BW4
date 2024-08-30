@@ -4,6 +4,7 @@ import aalbertocoscia.entities.TitoloViaggio;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 
 import java.util.List;
@@ -45,5 +46,12 @@ public class TitoloViaggioDAO {
                 TitoloViaggio.class
         );
         return query.getResultList();
+    }
+
+    public Long countAllTitoliViaggio() {
+        Query query = em.createQuery(
+                "SELECT COUNT(t) FROM TitoloViaggio t"
+        );
+        return (Long) query.getSingleResult();
     }
 }
