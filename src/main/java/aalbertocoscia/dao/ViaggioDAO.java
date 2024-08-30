@@ -91,6 +91,5 @@ public class ViaggioDAO {
         return query.getResultList();
     }
 
-    //TODO METODO CONTA QUANTE VOLTE UN MEZZO HA PERCORSO UNA TRATTA
 }
 

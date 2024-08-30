@@ -11,7 +11,9 @@ import jakarta.persistence.Persistence;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 
 public class Application {
@@ -518,7 +520,7 @@ public class Application {
                                         System.out.println("1. Crea un nuovo viaggio");
                                         System.out.println("2. Vedi tutti i viaggi");
                                         System.out.println("3. Vedi tutti i viaggi per tratta");
-                                        System.out.println("4. Conta quante volte un mezzo ha percorso una tratta");
+                                        System.out.println("4. Conta il numero di viaggi di ogni mezzo per una determinata tratta");
                                         System.out.println("0. Torna al menu precedente");
                                         String adminInput3 = scanner.nextLine();
                                         switch (adminInput3) {
@@ -599,7 +601,7 @@ public class Application {
                                                     System.err.println(e.getMessage());
                                                 }
                                                 break;
-                                            case "4": // Conta quante volte un mezzo ha percorso una tratta
+                                            case "4": // Conta il numero di viaggi di ogni mezzo per una determinata tratta
                                                 List<Tratta> listTratteCase4 = trd.findAllTratte();
                                                 System.out.println("Scegli la tratta");
                                                 for (int i = 0; i < listTratteCase4.size(); i++) {
@@ -609,7 +611,15 @@ public class Application {
                                                     int indexCase4 = Integer.parseInt(scanner.nextLine());
                                                     if (indexCase4 <= listTratteCase4.size()) {
                                                         Tratta tratta = listTratteCase4.get(indexCase4 - 1);
-                                                        System.out.println(vid.countViaggiPerMezzoByTratta(tratta.getIdTratta().toString()));
+                                                        List<Viaggio> listViaggiPerTratta = (vid.findViaggiByTratta(tratta.getIdTratta().toString()));
+                                                        Map<String, Long> viaggiPerMezzoMap = listViaggiPerTratta.stream()
+                                                                .collect(Collectors.groupingBy(
+                                                                        viaggio -> viaggio.getMezzo().getIdMezzo().toString(),
+                                                                        Collectors.counting()
+                                                                ));
+                                                        for (Map.Entry<String, Long> entry : viaggiPerMezzoMap.entrySet()) {
+                                                            System.out.println("Tratta " + tratta.getNumeroLinea() + " -> Mezzo ID: " + entry.getKey() + " -> Numero di viaggi: " + entry.getValue());
+                                                        }
                                                     } else {
                                                         System.err.println("Scegli un'opzione valida");
                                                     }
