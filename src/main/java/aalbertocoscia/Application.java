@@ -84,7 +84,7 @@ public class Application {
                                                 System.out.println("1. Compra un biglietto");
                                                 System.out.println("2. Compra un abbonamento");
                                                 System.out.println("3. Controlla validita abbonamento");
-                                                System.out.println("4. Vedi tutti i biglietti disponibili sulla tua tessera");
+                                                System.out.println("4. Vedi quanti biglietti disponibili sulla tua tessera");
                                                 System.out.println("5. Timbra biglietto");
                                                 System.out.println("0. Torna indietro");
                                                 userAction = scanner.nextLine();
@@ -166,10 +166,14 @@ public class Application {
                                                                         + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getMonthValue()
                                                                         + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getYear());
                                                             }
-                                                            break;
                                                         } catch (RuntimeException e) {
                                                             System.err.println("Non hai un abbonamento");
                                                         }
+                                                        break;
+                                                    case "4": // Vedi quanti biglietti disponibili sulla tua tessera
+                                                        Long countBigliettiByTessera = bd.countBigliettiByTessera(loggedInUser.getTessera().getIdTessera().toString());
+                                                        System.out.println("Biglietti disponibili: " + countBigliettiByTessera);
+                                                        break;
                                                 }
                                             } while (!userAction.equals("0"));
                                         } else {

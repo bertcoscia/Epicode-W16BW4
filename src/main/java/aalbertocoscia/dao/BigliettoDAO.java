@@ -123,4 +123,12 @@ public class BigliettoDAO {
         return count.intValue();
     }
 
+    public Long countBigliettiByTessera(String idTessera) {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b WHERE b.tessera.idTessera = :idTessera"
+        );
+        query.setParameter("idTessera", UUID.fromString(idTessera));
+        return (Long) query.getSingleResult();
+    }
+
 }
