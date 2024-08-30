@@ -1,5 +1,7 @@
 package aalbertocoscia.dao;
 
+import aalbertocoscia.entities.Abbonamento;
+import aalbertocoscia.entities.Biglietto;
 import aalbertocoscia.entities.TitoloViaggio;
 import aalbertocoscia.exceptions.NotFoundException;
 import jakarta.persistence.EntityManager;
@@ -53,5 +55,33 @@ public class TitoloViaggioDAO {
                 "SELECT COUNT(t) FROM TitoloViaggio t"
         );
         return (Long) query.getSingleResult();
+    }
+
+    public void deleteBigliettoById(String idBiglietto) {
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Biglietto biglietto = em.find(Biglietto.class, UUID.fromString(idBiglietto));
+            if (biglietto != null) {
+                em.remove(biglietto);
+            }
+            transaction.commit();
+        } catch (NotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+
+    public void deleteAbbonamentoById(String idAbbonamento) {
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
+            Abbonamento abbonamento = em.find(Abbonamento.class, UUID.fromString(idAbbonamento));
+            if (abbonamento != null) {
+                em.remove(abbonamento);
+            }
+            transaction.commit();
+        } catch (NotFoundException e) {
+            System.err.println(e.getMessage());
+        }
     }
 }

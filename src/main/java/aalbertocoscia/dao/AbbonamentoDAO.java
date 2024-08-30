@@ -34,7 +34,7 @@ public class AbbonamentoDAO {
         return found;
     }
 
-    public void deleteById(String id) {
+    /*public void deleteById(String id) {
         Abbonamento found = findAbbonamentoById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -45,7 +45,7 @@ public class AbbonamentoDAO {
         } else {
             System.out.println("Biglietto con ID " + id + " non trovato");
         }
-    }
+    }*/
 
     public List<Abbonamento> findAbbonamentiByScadenza(LocalDate scadenza) {
         TypedQuery<Abbonamento> query = em.createQuery(

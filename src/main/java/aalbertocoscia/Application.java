@@ -693,9 +693,23 @@ public class Application {
                                         switch (adminInput4) {
                                             case "1": // Conta titoli di viaggio emessi in totale
                                                 Long countTitoliViaggio1 = tvd.countAllTitoliViaggio();
-                                                System.out.println("Biglietti emessi in totale: " + countTitoliViaggio1);
+                                                System.out.println("Titoli di viaggio emessi in totale: " + countTitoliViaggio1);
                                                 break;
                                             case "2": // Conta titoli di viaggio emessi in totale per uno specifico intervallo di tempo
+                                                System.out.println("Inserisci la data di inizio in questo formato YYYY-MM-DD");
+                                                try {
+                                                    String startDate2 = scanner.nextLine();
+                                                    System.out.println("Inserisci la data di fine in questo formato YYYY-MM-DD");
+                                                    try {
+                                                        String endDate2 = scanner.nextLine();
+                                                        System.out.println("Biglietti: " + bd.countBigliettiEmessiInPeriodoDiTempo(startDate2, endDate2));
+                                                        System.out.println("Abbonamenti: " + ad.countAbbonamentiEmessiInPeriodoDiTempo(startDate2, endDate2));
+                                                    } catch (IllegalArgumentException e) {
+                                                        System.err.println(e.getMessage());
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
                                                 break;
                                             case "3": // Conta titoli di viaggio emessi per punto vendita
                                                 System.out.println("Scegli il venditore");

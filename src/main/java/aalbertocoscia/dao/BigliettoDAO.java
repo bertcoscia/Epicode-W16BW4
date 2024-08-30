@@ -33,7 +33,7 @@ public class BigliettoDAO {
         return found;
     }
 
-    public void deleteById(String id) {
+    /*public void deleteById(String id) {
         Biglietto found = findBigliettoById(id);
         if (found != null) {
             EntityTransaction transaction = em.getTransaction();
@@ -44,7 +44,7 @@ public class BigliettoDAO {
         } else {
             System.out.println("Biglietto con ID " + id + " non trovato");
         }
-    }
+    }*/
 
     public List<Biglietto> findBigliettiNonTimbrati() {
         TypedQuery<Biglietto> query = em.createQuery(
