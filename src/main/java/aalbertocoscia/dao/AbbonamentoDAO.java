@@ -88,4 +88,11 @@ public class AbbonamentoDAO {
         return count.intValue();
     }
 
+    public Long countAbbonamenti() {
+        Query query = em.createQuery(
+                "SELECT COUNT(a) FROM Abbonamento a"
+        );
+        return (Long) query.getSingleResult();
+    }
+
 }

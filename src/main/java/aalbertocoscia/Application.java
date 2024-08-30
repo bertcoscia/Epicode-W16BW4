@@ -694,6 +694,8 @@ public class Application {
                                             case "1": // Conta titoli di viaggio emessi in totale
                                                 Long countTitoliViaggio1 = tvd.countAllTitoliViaggio();
                                                 System.out.println("Titoli di viaggio emessi in totale: " + countTitoliViaggio1);
+                                                System.out.println("Biglietti: " + bd.countAllBiglietti());
+                                                System.out.println("Abbonamenti: " + ad.countAbbonamenti());
                                                 break;
                                             case "2": // Conta titoli di viaggio emessi in totale per uno specifico intervallo di tempo
                                                 System.out.println("Inserisci la data di inizio in questo formato YYYY-MM-DD");

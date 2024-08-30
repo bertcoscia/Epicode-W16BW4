@@ -139,4 +139,11 @@ public class BigliettoDAO {
         query.setParameter("idTessera", UUID.fromString(idTessera));
         return query.getResultList();
     }
+
+    public Long countAllBiglietti() {
+        Query query = em.createQuery(
+                "SELECT COUNT(b) FROM Biglietto b"
+        );
+        return (Long) query.getSingleResult();
+    }
 }
