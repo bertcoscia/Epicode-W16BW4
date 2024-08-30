@@ -712,7 +712,7 @@ public class Application {
                                                 }
                                                 break;
                                             case "3": // Conta titoli di viaggio emessi per punto vendita
-                                                System.out.println("Scegli il venditore");
+                                                System.out.println("Scegli il punto vendita");
                                                 List<Venditore> listVenditoriCount1 = ved.findAllVenditori();
                                                 for (int i = 0; i < listVenditoriCount1.size(); i++) {
                                                     System.out.println((i + 1) + ". " + listVenditoriCount1.get(i));
@@ -736,6 +736,34 @@ public class Application {
                                                 }
                                                 break;
                                             case "4": // Conta titoli di viaggio emessi per punto vendita in uno specifico intervallo di tempo per punto vendita
+                                                System.out.println("Scegli il punto vendita");
+                                                List<Venditore> listVenditoriCount4 = ved.findAllVenditori();
+                                                for (int i = 0; i < listVenditoriCount4.size(); i++) {
+                                                    System.out.println((i + 1) + ". " + listVenditoriCount4.get(i));
+                                                }
+                                                try {
+                                                    int indexListVenditoriCount4 = Integer.parseInt(scanner.nextLine());
+                                                    if (indexListVenditoriCount4 <= listVenditoriCount4.size()) {
+                                                        Venditore venditore4 = listVenditoriCount4.get(indexListVenditoriCount4 - 1);
+                                                        System.out.println("Inserisci la data di inizio in questo formato YYYY-MM-DD");
+                                                        String startDate4 = scanner.nextLine();
+                                                        System.out.println("Inserisci la data di fine in questo formato YYYY-MM-DD");
+                                                        String endDate4 = scanner.nextLine();
+                                                        try {
+                                                            int countBigliettiByVenditore4 = bd.countBigliettiEmessiInPeriodoDiTempoByVenditore(startDate4, endDate4, venditore4.getIdVenditore().toString());
+                                                            int countAbbonamentiByVenditore4 = ad.countAbbonamentiEmessiInPeriodoDiTempoByVenditore(startDate4, endDate4, venditore4.getIdVenditore().toString());
+                                                            System.out.println("Venditore " + venditore4.getIdVenditore());
+                                                            System.out.println("Biglietti: " + countBigliettiByVenditore4);
+                                                            System.out.println("Abbonamenti: " + countAbbonamentiByVenditore4);
+                                                        } catch (NotFoundException e) {
+                                                            System.err.println(e.getMessage());
+                                                        }
+                                                    } else {
+                                                        System.err.println("Scegli un'opzione valida");
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
                                                 break;
                                             case "5": // Conta biglietti timbrati per tratta
                                                 break;
