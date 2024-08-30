@@ -1,0 +1,30 @@
+Per questo progetto abbiamo pensato le nostre entità in questo modo:
+- Mezzo
+    Abbiamo una classe padre con strategia di eredità single table in quanto le classi figlie Tram
+    e Autobus non hanno nessun attributo che le contraddistingua. La colonna discriminante è data
+    dal tipo di mezzo (Autobus/Tram).
+
+- Manutenzione
+    Quest'entità ha una relazione 1-many con Mezzo (un mezzo può avere tante manutenzioni, una manutenzione
+    può avere un solo mezzo). La relazione si esprime attraverso la chiave esterna id_mezzo.
+
+ - Venditore
+    Anche in questo caso abbiamo una strategia single table. La colonna discriminante è data dal tipo di venditore.
+
+- Titoli di Viaggio
+    In questo caso abbiamo scelta una strategia joined table. Le classi figlie Biglietto e Abbonamento ereditano
+    l'id, l'id della tessera associata (nessuna istanza delle due classi può esistere se non è associata
+    ad una tessera), l'id del venditore che ha emesso il titolo di viaggio e la data di emissione.
+    L'entità biglietto ha una relazione 1-many con Tessera (un biglietto può essere associato ad una sola tessera,
+    mentre una tessera può avere associati più biglietti) ed una relazione 1-many con l'entità viaggio
+    (la chiave esterna viene inserita al momento della vidimazione del biglietto, associandolo ad uno specifico viaggio),
+    mentre l'entità Abbonamento ha una relazione 1-1 con la tessera.
+
+- User
+    L'entità è collegata a Tessera, la quale viene generata ed associata direttamente all'utente al momento
+    della creazione dell'utente.
+
+- Viaggio
+    Ogni istanza dell'entità Viaggio è associata ad un mezzo e ad una tratta attraverso relazioni 1-many
+    (un viaggio può avere un solo mezzo ed una sola tratta associati, mentre un mezzo ed una tratta possono
+    avere tanti viaggi associati).
