@@ -83,6 +83,9 @@ public class Application {
                                                 System.out.println("Scegli un'opzione");
                                                 System.out.println("1. Compra un biglietto");
                                                 System.out.println("2. Compra un abbonamento");
+                                                System.out.println("3. Controlla validita abbonamento");
+                                                System.out.println("4. Vedi tutti i biglietti disponibili sulla tua tessera");
+                                                System.out.println("5. Timbra biglietto");
                                                 System.out.println("0. Torna indietro");
                                                 userAction = scanner.nextLine();
 
@@ -152,6 +155,21 @@ public class Application {
                                                             System.out.println("Errore: Seleziona un venditore valido.");
                                                         }
                                                         break;
+                                                    case "3": // Controlla validita abbonamento
+                                                        try {
+                                                            if (loggedInUser.isAbbonamentoValido()) {
+                                                                System.out.println("Il tuo abbonamento è valido. Scadrà in data " + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getDayOfMonth()
+                                                                        + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getMonthValue()
+                                                                        + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getYear());
+                                                            } else {
+                                                                System.out.println("Il tuo abbonamento è scaduto in data " + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getDayOfMonth()
+                                                                        + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getMonthValue()
+                                                                        + "-" + loggedInUser.getTessera().getAbbonamento().getData_scadenza().getYear());
+                                                            }
+                                                            break;
+                                                        } catch (RuntimeException e) {
+                                                            System.err.println("Non hai un abbonamento");
+                                                        }
                                                 }
                                             } while (!userAction.equals("0"));
                                         } else {
