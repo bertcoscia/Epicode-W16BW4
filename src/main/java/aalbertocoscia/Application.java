@@ -766,6 +766,33 @@ public class Application {
                                                 }
                                                 break;
                                             case "5": // Conta biglietti timbrati per tratta
+                                                System.out.println("Scegli la tratta da controllare");
+                                                List<Tratta> listTratte5 = trd.findAllTratte();
+                                                for (int i = 0; i < listTratte5.size(); i++) {
+                                                    System.out.println((i + 1) + ". " + listTratte5.get(i));
+                                                }
+                                                try {
+                                                    int indexListTratte5 = Integer.parseInt(scanner.nextLine());
+                                                    if (indexListTratte5 <= listTratte5.size()) {
+                                                        Tratta tratta5 = listTratte5.get(indexListTratte5 - 1);
+                                                        List<Viaggio> listViaggi5 = vid.findViaggiByTratta(tratta5.getIdTratta().toString());
+                                                        if (!listViaggi5.isEmpty()) {
+                                                            int sommaTotale = 0;
+                                                            for (int i = 0; i < listViaggi5.size(); i++) {
+                                                                int countBigliettiByViaggio = bd.countBigliettiByViaggio(listViaggi5.get(i).getIdViaggio().toString());
+                                                                sommaTotale += countBigliettiByViaggio;
+                                                                System.out.println((i + 1) + ". Viaggio n. " + listViaggi5.get(i).getIdViaggio() + ". Biglietti timbrati: " + countBigliettiByViaggio);
+                                                            }
+                                                            System.out.println("Totale biglietti timbrati per la tratta " + tratta5.getNumeroLinea() + ": " + sommaTotale);
+                                                        } else {
+                                                            System.err.println("Non ci sono viaggi per questa tratta");
+                                                        }
+                                                    } else {
+                                                        System.err.println("Scegli un'opzione valida");
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
                                                 break;
                                             default:
                                                 break;

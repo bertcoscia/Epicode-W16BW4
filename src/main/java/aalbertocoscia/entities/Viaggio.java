@@ -63,6 +63,10 @@ public class Viaggio {
         this.tratta = tratta;
     }
 
+    public List<Biglietto> getListBiglietti() {
+        return listBiglietti;
+    }
+
     @Override
     public String toString() {
         return "Viaggio n. " + idViaggio + ", durata effettiva: " + durataEffettiva + " minuti, tratta: " + tratta.getNumeroLinea() + ", mezzo n. " + mezzo.getIdMezzo();

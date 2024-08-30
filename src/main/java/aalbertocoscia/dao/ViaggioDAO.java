@@ -91,5 +91,6 @@ public class ViaggioDAO {
         return query.getResultList();
     }
 
+
 }
 
