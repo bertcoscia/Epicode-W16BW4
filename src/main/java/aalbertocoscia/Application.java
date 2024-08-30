@@ -10,6 +10,7 @@ import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -681,7 +682,42 @@ public class Application {
                                         }
                                         break;
                                     case "4": // Gestione titoli di viaggio
-
+                                        System.out.println("Scegli un'opzione");
+                                        System.out.println("1. Conta titoli di viaggio emessi per punto vendita");
+                                        System.out.println("2. Conta titoli di viaggio emessi in un intervallo di date");
+                                        System.out.println("3. Conta biglietti timbrati per tratta");
+                                        System.out.println("0. Torna al menu precedente");
+                                        String adminInput4 = scanner.nextLine();
+                                        switch (adminInput4) {
+                                            case "1": // Conta titoli di viaggio emessi per punto vendita
+                                                System.err.println("Scegli il venditore");
+                                                List<Venditore> listVenditoriCount1 = ved.findAllVenditori();
+                                                for (int i = 0; i < listVenditoriCount1.size(); i++) {
+                                                    System.out.println((i + 1) + ". " + listVenditoriCount1.get(i));
+                                                }
+                                                try {
+                                                    int indexListVenditoriCount1 = Integer.parseInt(scanner.nextLine());
+                                                    if (indexListVenditoriCount1 <= listVenditoriCount1.size()) {
+                                                        Venditore venditore1 = listVenditoriCount1.get(indexListVenditoriCount1 - 1);
+                                                        int countBigliettiByVenditore1 = ved.countBigliettiByVenditore(venditore1.getIdVenditore().toString());
+                                                        int countAbbonamentiByVenditore1 = ved.countAbbonamentiByVenditore(venditore1.getIdVenditore().toString());
+                                                        Map<String, Integer> mapCount1 = new HashMap<>();
+                                                        mapCount1.put("Biglietti", countBigliettiByVenditore1);
+                                                        mapCount1.put("Abbonamenti", countAbbonamentiByVenditore1);
+                                                        System.out.println("Venditore n. " + venditore1.getIdVenditore().toString());
+                                                        System.out.println(mapCount1.entrySet());
+                                                    }
+                                                } catch (IllegalArgumentException e) {
+                                                    System.err.println(e.getMessage());
+                                                }
+                                                break;
+                                            case "2": // Conta titoli di viaggio emessi in un intervallo di date
+                                                break;
+                                            case "3": // Conta biglietti timbrati per tratta
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                         break;
                                     default:
                                         if (!adminAction.equals("0")) {
